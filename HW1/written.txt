@@ -1,0 +1,34 @@
+Written #1
+What are the types of the following values?
+1A 48.25
+1B 48
+1C -1
+1D -5.0
+1E "hello"
+1F 'and goodbye!'
+1G '15'
+
+My answer: 
+1A float
+1B int
+1C int
+1D float
+1E str
+1F str
+1G str
+
+Written #2
+What do the following expressions evaluate to?
+2A 7 / 5
+2B 7.0 / 5.0
+2C 7 // 5
+2D 7 % 5
+
+My answer: 
+2A 1.4
+2B 1.4
+2C 1
+2D 2
+
+Written#3
+My Answer:print(hello) will give a variable name error because the variable hello is not defined.
