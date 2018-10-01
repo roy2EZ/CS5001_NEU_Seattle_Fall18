@@ -30,38 +30,40 @@ WEEKEND_LIST = ["sat","sun"]
 DAY_LIST=WEEKDAY_LIST+WEEKEND_LIST
 
 def haybalemase_bill(temp,day,time,if_rain):
-    temp= int(input("What is the temprature now?\n"))
-    day = input("What day of the week is it?\n").lower()
-    time= int(input("What hour of the day is it?"))
-    if_rain=input("Is it raining? Enter Y/N:\n").upper()
+    
+    temp_extra = 0
+    day_extra = 0
+    weather_extra=0
 
     while temp < 0 & temp > 99:
         temp=MAX_TEMP
         temp_extra = 0
-        break
     if temp>=MAX_TEMP:
         temp_extra = (temp - MAX_TEMP)*ABOVE_TEMP_RATE
     elif temp<=MIN_TEMP:
         temp_extra = (MIN_TEMP - temp)*BELOW_TEMP_RATE
     
-    for day not in DAY_LIST：
+    
+    if day not in DAY_LIST:
         day="mon"
-        break
     if day in WEEKDAY_LIST:
-        if time>=WEEKADY_LATE_TIME:
+        if time >= WEEKADY_LATE_TIME:
             day_extra = WEEKDAY_LATE_EXTRA
         else:
             day_extra = 0
     elif day in WEEKEND_LIST:
-        day_extra = WEEKEND_EXTRA   
+        day_extra = WEEKEND_EXTRA
     
     if if_rain=="Y":
         weather_extra=RAIN_EXTRA
     else:
         weather_extra=0
 
-return "Your final price for the maze is: $"+str(round(BASE_PRICE+temp_extra+day_extra+weather_extra,2))
+    return "Your final price for the maze is: $"+str(round(BASE_PRICE+temp_extra+day_extra+weather_extra,2))
 
-
-print(haybalemase_bill())
+temp= int(input("What is the temprature now?\n"))
+day = input("What day of the week is it?\n").lower()
+time= int(input("What hour of the day is it?"))
+if_rain=input("Is it raining? Enter Y/N:\n").upper()
+print(haybalemase_bill(temp,day,time,if_rain))
         
