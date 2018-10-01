@@ -35,7 +35,7 @@ def haybalemase_bill(temp,day,time,if_rain):
     day_extra = 0
     weather_extra=0
 
-    while temp < 0 & temp > 99:
+    if temp < 0 & temp > 99:
         temp=MAX_TEMP
         if temp>=MAX_TEMP:
             temp_extra = (temp - MAX_TEMP)*ABOVE_TEMP_RATE
