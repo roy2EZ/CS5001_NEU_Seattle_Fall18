@@ -44,7 +44,7 @@ def haybalemase_bill(temp,day,time,temp_extra,if_rain):
         temp_extra = (MIN_TEMP - temp)*BELOW_TEMP_RATE
     
     while day not in DAY_LIST：
-        day == "mon"
+        day = "mon"
     if day in WEEKDAY_LIST:
         if time>=WEEKADY_LATE_TIME:
             day_extra = WEEKDAY_LATE_EXTRA
