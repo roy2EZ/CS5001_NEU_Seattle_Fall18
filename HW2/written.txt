@@ -1,0 +1,23 @@
+Written#1
+1A: 1-2-3-6
+1B: 1-2-4-5-6
+1C: 1-2-4-6
+
+Written#2
+nickname = dog_name[:num_letters]+"-"+name_suffix
+
+Written#3
+
+3A World
+
+3B Hello
+   World
+
+3C x = 5
+
+Written#4
+
+4A eeee
+4B Cheer!
+4C Cheer Bear
+4D CHEER BEAR
