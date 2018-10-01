@@ -6,13 +6,13 @@
 #### Signature
 # haybalemase_bill :: (Integer,String,Integer,String) => Float
 #### Template
-# def rsp_game(given):
+# def haybalemase_bill(given):
 #    return returns...
 #### Examples
-#  R vs S => Rock smashes scissors! You win!
-#  s vs S => OMG it's a tie!!!
-#  paper vs S => Scissors cut paper! You lose!
-#  ninja => That is not a rock, scissors, or paper, sorry, no game
+#  60,mon,8,n => $9
+#  95,sat,19,y => $12.5
+#  30,Fri,10,N => $8.5
+#  -6,sunday funday,25,yes it is raining!=>
 
 BASE_PRICE = 9
 MAX_TEMP = 75
@@ -22,7 +22,7 @@ BELOW_TEMP_RATE = -0.05
 WEEKEND_EXTRA = 1
 WEEKDAY_START_TIME=0
 WEKDAY_END_TIME=23
-WEEKADY_LATE_TIME = 5
+WEEKADY_LATE_TIME = 17
 WEEKDAY_LATE_EXTRA = 2
 RAIN_EXTRA = 0.5
 WEEKDAY_LIST = ["mon","tue","wed","thu","fri"]
@@ -35,7 +35,7 @@ def haybalemase_bill(temp,day,time,if_rain):
     day_extra = 0
     weather_extra=0
 
-    while temp < 0 & temp > 99:
+    if temp < 0 & temp > 99:
         temp=MAX_TEMP
         temp_extra = 0
     if temp>=MAX_TEMP:
@@ -47,6 +47,8 @@ def haybalemase_bill(temp,day,time,if_rain):
     if day not in DAY_LIST:
         day="mon"
     if day in WEEKDAY_LIST:
+        if time <0 or time>23:
+            time=12
         if time >= WEEKADY_LATE_TIME:
             day_extra = WEEKDAY_LATE_EXTRA
         else:
@@ -63,7 +65,7 @@ def haybalemase_bill(temp,day,time,if_rain):
 
 temp= int(input("What is the temprature now?\n"))
 day = input("What day of the week is it?\n").lower()
-time= int(input("What hour of the day is it?"))
+time= int(input("What hour of the day is it?\n"))
 if_rain=input("Is it raining? Enter Y/N:\n").upper()
 print(haybalemase_bill(temp,day,time,if_rain))
         
