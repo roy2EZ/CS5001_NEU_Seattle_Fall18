@@ -9,14 +9,14 @@
 #### Examples
 #  Madam Im Adam         => Palindrome!
 #  上海自来水来自海上      => Palindrome!
-#  Taco cat              => Palindrome!
+#  Yo r Roy              => Palindrome!
 #  ?Was it a cat I saw?  => Palindrome!
 #  !!Sex at noon taxes!! => Palindrome!
 #  Madam, I'm Adam.      => Not a palindrome :(
 #  taco cat!             => Not a palindrome :(
 #  Not nil: Clinton!     => Not a palindrome :(
 #  No x in Nixon.        => Not a palindrome :(
-#  自我突破，突破自我     => Not a palindrome :(
+#  自我突破，突破自我      => Not a palindrome :(
 def palindrome_check(string):
     #make the string as a list and use replace() to remove space and upper() for case-insensitive
     string = list(string.replace(' ', '').upper())
