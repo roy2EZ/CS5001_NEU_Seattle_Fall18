@@ -13,6 +13,7 @@
 #  s vs S => OMG it's a tie!!!
 #  paper vs S => Scissors cut paper! You lose!
 #  ninja => That is not a rock, scissors, or paper, sorry, no game
+
 BASE_PRICE = 9
 MAX_TEMP = 75
 ABOVE_TEMP_RATE = 0.1
@@ -24,40 +25,43 @@ WEKDAY_END_TIME=23
 WEEKADY_LATE_TIME = 5
 WEEKDAY_LATE_EXTRA = 2
 RAIN_EXTRA = 0.5
-WEEKDAY_LIST=["mon","tue","wed","thu","fri"]
-WEEKEDN_LIST=["sat","sun"]
-DAY_LIST=WEEKDAY_LIST+WEEKEDN_LIST
+WEEKDAY_LIST = ["mon","tue","wed","thu","fri"]
+WEEKEND_LIST = ["sat","sun"]
+DAY_LIST=WEEKDAY_LIST+WEEKEND_LIST
 
-def haybalemase_bill(temp,day,time,temp_extra,if_rain):
-    
+def haybalemase_bill(temp,day,time,if_rain):
     temp= int(input("What is the temprature now?\n"))
     day = input("What day of the week is it?\n").lower()
     time= int(input("What hour of the day is it?"))
     if_rain=input("Is it raining? Enter Y/N:\n").upper()
-    
+
     while temp < 0 & temp > 99:
         temp=MAX_TEMP
         temp_extra = 0
+        break
     if temp>=MAX_TEMP:
         temp_extra = (temp - MAX_TEMP)*ABOVE_TEMP_RATE
     elif temp<=MIN_TEMP:
         temp_extra = (MIN_TEMP - temp)*BELOW_TEMP_RATE
     
-    while day not in DAY_LIST：
-        day = "mon"
+    for day not in DAY_LIST：
+        day="mon"
+        break
     if day in WEEKDAY_LIST:
         if time>=WEEKADY_LATE_TIME:
             day_extra = WEEKDAY_LATE_EXTRA
         else:
             day_extra = 0
     elif day in WEEKEND_LIST:
-            day_extra = WEEKEND_EXTRA
-
+        day_extra = WEEKEND_EXTRA   
+    
     if if_rain=="Y":
         weather_extra=RAIN_EXTRA
     else:
         weather_extra=0
-return final_price = BASE_PRICE+temp_extra+day_extra+weather_extra
+
+return "Your final price for the maze is: $"+str(round(BASE_PRICE+temp_extra+day_extra+weather_extra,2))
+
 
 print(haybalemase_bill())
         
