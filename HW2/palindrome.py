@@ -9,9 +9,9 @@
 #### Examples
 #  Madam Im Adam         => Palindrome!
 #  上海自来水来自海上      => Palindrome!
-#  Yo r Roy              => Palindrome!
+#  Taco cat              => Palindrome!
 #  ?Was it a cat I saw?  => Palindrome!
-#  !!Sex at noon taxes!! => Palindrome!
+#  Yo r "Sex at noon taxes" Roy  => Palindrome!
 #  Madam, I'm Adam.      => Not a palindrome :(
 #  taco cat!             => Not a palindrome :(
 #  Not nil: Clinton!     => Not a palindrome :(
