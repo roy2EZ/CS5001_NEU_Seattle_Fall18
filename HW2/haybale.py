@@ -26,40 +26,38 @@ WEEKDAY_LATE_EXTRA = 2
 RAIN_EXTRA = 0.5
 WEEKDAY_LIST=["mon","tue","wed","thu","fri"]
 WEEKEDN_LIST=["sat","sun"]
+DAY_LIST=WEEKDAY_LIST+WEEKEDN_LIST
 
-def haybalemase_bill(temp,day,time,if_rain):
+def haybalemase_bill(temp,day,time,temp_extra,if_rain):
     
     temp= int(input("What is the temprature now?\n"))
     day = input("What day of the week is it?\n").lower()
     time= int(input("What hour of the day is it?"))
     if_rain=input("Is it raining? Enter Y/N:\n").upper()
-    temp_extra = 0
-    day_extra=0
-    if temp < 0 & temp > 99:
+    
+    while temp < 0 & temp > 99:
         temp=MAX_TEMP
         temp_extra = 0
-    elif temp>=MAX_TEMP:
+    if temp>=MAX_TEMP:
         temp_extra = (temp - MAX_TEMP)*ABOVE_TEMP_RATE
     elif temp<=MIN_TEMP:
-        temp_extra = (MIN_TEMP - temp*BELOW_TEMP_RATE
+        temp_extra = (MIN_TEMP - temp)*BELOW_TEMP_RATE
     
-    for day in WEEKDAY_LIST+WEEKEND_LIST：
-        
-        if day in WEEKDAY_LIST and time>=WEEKDAY_START_TIME && time<=WEKDAY_END_TIME:
-            if time>=WEEKADY_LATE_TIME:
-                return day_extra = WEEKDAY_LATE_EXTRA
-            else:
-                return day_extra = 0
-        elif day in WEEKEND_LIST:
-            return day_extra = WEEKEND_EXTRA
-    elif:
-        day="mon"
+    while day not in DAY_LIST：
+        day == "mon"
+    if day in WEEKDAY_LIST:
+        if time>=WEEKADY_LATE_TIME:
+            day_extra = WEEKDAY_LATE_EXTRA
+        else:
+            day_extra = 0
+    elif day in WEEKEND_LIST:
+            day_extra = WEEKEND_EXTRA
 
-    if if_rain="Y":
-        return weather_extra=RAIN_EXTRA
+    if if_rain=="Y":
+        weather_extra=RAIN_EXTRA
     else:
-        return weather_extra=0
-return final_price=BASE_PRICE+temp_extra+day_extra+weather_extra
+        weather_extra=0
+return final_price = BASE_PRICE+temp_extra+day_extra+weather_extra
 
 print(haybalemase_bill())
         
