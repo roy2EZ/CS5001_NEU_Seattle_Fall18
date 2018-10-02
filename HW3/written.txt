@@ -1,0 +1,48 @@
+Written #1
+user_in not in["Y","N"]
+
+Written #2
+2A: 1-2-3-5-2-3-4-6
+2B: i is 1
+2C: 2
+2D: i is 4
+
+Written #3
+sum = 3
+
+Written #4
+4A:
+['red', 'green', 'blue'] 	
+
+4B:
+red
+green
+blue
+
+4C:
+0 red
+1 green
+2 blue
+
+Written #5
+5A:
+0
+1
+2
+3
+4
+5
+
+5B:
+2
+3
+4
+5
+
+5C:
+2
+7
+12
+17
+22
+27
