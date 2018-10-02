@@ -1,6 +1,6 @@
 #### Purpose
 # To prompt user to input a positive integer which is power of 2
-# and calculate calculate the logarithm base 2 of that integer
+# and calculate the logarithm base 2 of that integer
 #### Signature
 # log_calculator :: (Integer)=>Integer
 #### Template
@@ -15,10 +15,10 @@
 def log_calculator():
     power=int(input("Enter a positive power of 2:\n"))
     result=power
-    flag=0
-    while result!=0:
+    i = 0
+    while result!=1:
         result =int(result/2)
-        flag += 1
-    return "lg("+str(power)+") = "+str(flag-1)
+        i += 1
+    return "lg("+str(power)+") = "+str(i)
 
 print(log_calculator())
