@@ -4,15 +4,15 @@
 # To calculate the actual price after all that input is taken into consideration, 
 # and print it out to the user in a currency format (e.g., “your final price is $10.00”).
 #### Signature
-# haybalemase_bill :: (Integer,String,Integer,String) => Float
+# haybalemase_bill :: (Integer,String,Integer,String) => String
 #### Template
 # def haybalemase_bill(given):
 #    return returns...
 #### Examples
-#  60,mon,8,n => $9
-#  95,sat,19,y => $12.5
-#  30,Fri,10,N => $8.5
-#  -6,sunday funday,25,yes it is raining!=> $9
+#  60,mon,8,n => Your final price for the maze is: $9
+#  95,sat,19,y => Your final price for the maze is: $12.5
+#  30,Fri,10,N => Your final price for the maze is: $8.5
+#  -6,sunday funday,25,yes it is raining!=> Your final price for the maze is: $9
 
 BASE_PRICE = 9
 MAX_TEMP = 75
