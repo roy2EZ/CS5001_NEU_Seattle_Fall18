@@ -66,21 +66,18 @@ def string_process():
     str_input = input("Please enter a string to convert:\n")
     str_palindrome = in_reverse(str_input)
     str_result = str_input + str_palindrome
-    print("Would you like and uppercase or lowercase palindrome?") 
-    case_user_requir = input("Enter U for uppercase and L for lowercase.\n")
+    
     if str_input == "STOP":
         return "OK, STOP"
     else:    
+        print("Would you like and uppercase or lowercase palindrome?") 
+        case_user_requir = input("Enter U for uppercase and L for lowercase.\n")
         if case_user_requir == "U":
             print(to_upper(str_result))
             return string_process()
         elif case_user_requir == "L":
             print(to_lower(str_result))
             return string_process()
-    
-        
-            
-        
     
 print(string_process())  
     
