@@ -94,7 +94,6 @@ def score_10_and_more_count():
 #   return returns...
 #### Examples
 # win_with_score_1(record,score) => There are 7 win games with a score of exactly 1.  
-
 def win_with_score_1():
     sum = 0
     i = 0
