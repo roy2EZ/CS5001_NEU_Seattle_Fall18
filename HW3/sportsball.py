@@ -1,35 +1,3 @@
-#### Purpose
-# There are two lists: record and score, which is
-# for the win or lose results and scores of each game a soccor team played. 
-# I made 6 functions to solve 6 related questions about some statics of the results
-#### Signature
-# record_count() :: (List) => String
-# score_average() :: (List) => String
-# score_0_count() :: (List) => String
-# score_10_and_more_count() :: (List) => String
-# win_with_score_1() :: (List,List) => String
-# lose_with_score_10plus() :: (List,List) => String
-#### Template
-# def record_count():
-#   return returns...
-# def score_average():
-#   return returns...
-# def score_0_count():
-#   return returns...
-# def score_10_and_more_count():
-#   return returns...
-# def win_with_score_1():
-#   return returns...
-# def lose_with_score_10plus():
-#   return returns...
-#### Examples
-# record_count(record) => The amount of record W is 69. The amount of record L is 31.
-# score_average(score) => The average score is: 5.32
-# score_0_count(score) => The amount of score 0 is 4.
-# score_10_and_more_count(score) => There are 10 games with score of 10 and more.
-# win_with_score_1(record,score) => There are 7 win games with a score of exactly 1.
-# lose_with_score_10plus(record,score) => There are 2 lost games with a score of 10 and more.
-
 record = [ 'W', 'W', 'W', 'W', 'L', 'W',
 'W', 'W', 'L', 'W', 'W', 'W',
 'W', 'W', 'W', 'W', 'W', 'L',
@@ -54,24 +22,60 @@ score = [ 4, 1, 3, 2, 7, 4, 3, 10, 8, 14, 7, 6, 7, 10,
 9, 14, 2, 5, 9, 9, 4, 1, 11, 1, 4, 11, 3, 10,
 15, 7, 5, 8, 4, 6, 7, 6, 5, 1, 0 ]
 
+#### Purpose
+# To answer: 
 # Q1 What is the team’s win/loss record? 
 # I.e., how many entries in the first list have a ‘W’, and how many have an ‘L’?
+#### Signature
+# record_count() :: (List) => String
+#### Template
+# def record_count(given...):
+#   return returns...
+#### Examples
+# record_count(record) => The amount of record W is 69. The amount of record L is 31.
 def record_count():
     for i in set(record):
         print("The amount of record %s is %d."%(i,record.count(i)))    
 
-#Q2 What is the average score per game?
+#### Purpose
+# To answer: 
+# Q2 What is the average score per game?
+#### Signature
+# score_average() :: (List) => String
+#### Template
+# def score_average(given...):
+#   return returns...
+#### Examples
+# score_average(score) => The average score is: 5.32
 def score_average():
     sum=0
     for i in range(0,len(score)):
         sum += score[i]
     print("The average score is: " + str(sum/len(score)))
 
-#Q3 How many games has the team played where they scored 0?
+#### Purpose
+# To answer: 
+# Q3 How many games has the team played where they scored 0?
+#### Signature
+# score_0_count() :: (List) => String
+#### Template
+# def score_0_count(given...):
+#   return returns...
+#### Examples
+# score_0_count(score) => The amount of score 0 is 4.
 def score_0_count():
     print("The amount of score %s is %d."%(0,score.count(0)))
 
-#Q4 How many games has the team played where they scored 10 or more?
+#### Purpose
+# To answer: 
+# Q4 How many games has the team played where they scored 10 or more?
+#### Signature
+# score_10_and_more_count() :: (List) => String
+#### Template
+# def score_10_and_more_count(given...):
+#  return returns...
+#### Examples
+# score_10_and_more_count(score) => There are 10 games with score of 10 and more.
 def score_10_and_more_count():
     sum=0
     i=0
@@ -79,8 +83,18 @@ def score_10_and_more_count():
         if i >= 10:
             sum += 1                
     print("There are %s games with score of 10 and more."%sum) 
-        
-#Q5 How many games did the team win with a score of exactly 1?
+
+#### Purpose
+# To answer: 
+# Q5 How many games did the team win with a score of exactly 1? 
+#### Signature
+# win_with_score_1() :: (List,List) => String
+#### Template
+# def win_with_score_1(given...):
+#   return returns...
+#### Examples
+# win_with_score_1(record,score) => There are 7 win games with a score of exactly 1.  
+
 def win_with_score_1():
     sum = 0
     i = 0
@@ -90,7 +104,16 @@ def win_with_score_1():
                 sum += 1
     print("There are %s win games with a score of exactly 1."%sum)
 
-#Q6 How many games did the team lose with a score of at least 10?
+#### Purpose
+# To answer: 
+# Q6 How many games did the team lose with a score of at least 10?
+#### Signature
+# lose_with_score_10plus() :: (List,List) => String
+#### Template
+# def lose_with_score_10plus():
+#   return returns...
+#### Examples
+# lose_with_score_10plus(record,score) => There are 2 lost games with a score of 10 and more.
 def lose_with_score_10plus():
     sum = 0
     i = 0
