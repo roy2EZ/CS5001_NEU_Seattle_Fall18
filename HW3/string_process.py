@@ -8,7 +8,6 @@
 #### Examples
 # to_upper("test string 9000") => "TEST STRING 9000"
 # to_upper("ThIs Is A sTrInG") => "THIS IS A STRING"
-
 def to_upper(string):  
     #create a list of input string
     s1=list(string)
@@ -24,8 +23,6 @@ def to_upper(string):
         i += 1
     #join each element in the list s2 into a str as output    
     return "".join(s2)
-
-
 
 #### Purpose
 # This function takes a string as input and returns the lowercase version of the string
@@ -51,7 +48,6 @@ def to_lower(string):
             s2[i]=str(chr(ord(s1[i]) + 32))  
         i += 1
     return "".join(s2)
-
 
 #### Purpose
 # This function takes a string as input and returns the reverse of
@@ -80,7 +76,6 @@ def in_reverse(string):
 #### Purpose
 # This function takes a string as input and returns palindrome using that user input, 
 # with all uppercase or lowercase option for user to choose
-#
 #### Signature
 # string_process :: (String,String) => String
 #### Template
@@ -113,6 +108,5 @@ def string_process():
         elif case_user_requir == "L":
             print("Here is your lowercase palindrome:\n"+to_lower(str_result))
             return string_process()
-
-
+#run the function for test
 print(string_process())

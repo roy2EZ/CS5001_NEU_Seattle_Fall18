@@ -4,18 +4,16 @@
 # upc():: String => String
 #### Template
 # def upc(given...):
-# return returns...
+#   return returns...
 #### Examples
 # Test case #1: Meadowoods Air Fresshener
 #4973258253 -- valid
 #4973259253 -- invalid -- mistyped 8 instead of 9
 #4972358253 -- invalid -- transposed two digits
-
 # Test case #2: FredMeyer Purified Drinking Water 
 #924187053904 -- valid
 #924187054904 -- invalid -- mistyped 3 instead of 4
 #924178053904 -- invalid -- transposed two digits
-
 # Test case #3: Head First Python 2nd Edition
 #781421916537 -- valid
 #781521916537 -- invalid -- mistyped 4 instead of 5
