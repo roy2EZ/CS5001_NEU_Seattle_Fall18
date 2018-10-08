@@ -1,13 +1,11 @@
 #### Purpose
-# This function prompt user enter a  and calculate if the
+# This function prompt user enter a UPC code and calculate if the code is valid with UPC rules
 #### Signature
-# in_reverse :: String => String
+# upc():: String => String
 #### Template
-# def in_reverse(given…):
+# def upc(given...):
 # return returns...
 #### Examples
-# in_reverse(“Tuesday 3:00 PM”) => “MP 00:3 yadseuT”
-# in_reverse(“abcde”) => “edcba”
 # Test case #1: Meadowoods Air Fresshener
 #4973258253 -- valid
 #4973259253 -- invalid -- mistyped 8 instead of 9
