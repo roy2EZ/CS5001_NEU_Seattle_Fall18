@@ -1,7 +1,7 @@
 #### Purpose
 # This function prompt user enter a UPC code and calculate if the code is valid with UPC rules
 #### Signature
-# upc():: String => String
+# upc():: (String) => String
 #### Template
 # def upc(given...):
 #   return returns...

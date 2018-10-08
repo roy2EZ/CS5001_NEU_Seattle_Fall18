@@ -1,7 +1,7 @@
 #### Purpose
 # This function takes a string as input and returns the uppercase version of the string
 #### Signature
-# to_upper :: String => String
+# to_upper :: (String) => String
 #### Template
 # def to_upper(given...):
 # return returns...

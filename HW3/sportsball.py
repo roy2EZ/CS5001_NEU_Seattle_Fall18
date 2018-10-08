@@ -1,3 +1,35 @@
+#### Purpose
+# There are two lists: record and score, which is
+# for the win or lose results and scores of each game a soccor team played. 
+# I made 6 functions to solve 6 related questions about some statics of the results
+#### Signature
+# record_count() :: (List) => String
+# score_average() :: (List) => String
+# score_0_count() :: (List) => String
+# score_10_and_more_count() :: (List) => String
+# win_with_score_1() :: (List,List) => String
+# lose_with_score_10plus() :: (List,List) => String
+#### Template
+# def record_count():
+#   return returns...
+# def score_average():
+#   return returns...
+# def score_0_count():
+#   return returns...
+# def score_10_and_more_count():
+#   return returns...
+# def win_with_score_1():
+#   return returns...
+# def lose_with_score_10plus():
+#   return returns...
+#### Examples
+# record_count(record) => The amount of record W is 69. The amount of record L is 31.
+# score_average(score) => The average score is: 5.32
+# score_0_count(score) => The amount of score 0 is 4.
+# score_10_and_more_count(score) => There are 10 games with score of 10 and more.
+# win_with_score_1(record,score) => There are 7 win games with a score of exactly 1.
+# lose_with_score_10plus(record,score) => There are 2 lost games with a score of 10 and more.
+
 record = [ 'W', 'W', 'W', 'W', 'L', 'W',
 'W', 'W', 'L', 'W', 'W', 'W',
 'W', 'W', 'W', 'W', 'W', 'L',
