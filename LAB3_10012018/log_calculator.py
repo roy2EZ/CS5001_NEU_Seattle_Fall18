@@ -12,13 +12,17 @@
 # 4 => lg(4)=2
 # 8 => lg(8)=3
 
-def log_calculator():
-    power=int(input("Enter a positive power of 2:\n"))
+def log_calculator(power):
+    power=int(power)
     result=power
     i = 0
     while result!=1:
         result =int(result/2)
         i += 1
-    return "lg("+str(power)+") = "+str(i)
+    return str(i)
 
-print(log_calculator())
+def main():
+    power=input("Enter a positive power of 2:\n")
+    print("log2("+power+") = " + log_calculator(power))
+
+main()
