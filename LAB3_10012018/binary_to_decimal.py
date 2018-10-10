@@ -11,12 +11,18 @@
 # 11111 => 31
 # 001 => 1
 
-def binary_to_decimal():
-    binary=input("Please enter a binary number:\n")
+def binary_to_decimal(binary):
+
     decimal=0
     i=0
     while i < len(binary):
-        decimal += 2**(i) * int(binary[-i-1])
+        decimal += 2 ** (i) * int(binary[-i-1])
         i += 1
-    return "The decimal of binary "+binary+" = "+str(decimal)
-print(binary_to_decimal())
+    return str(decimal)
+
+def main():
+    binary=input("Please enter a binary number:\n")
+    print("The decimal of binary "+binary+" = "+binary_to_decimal(binary))
+
+main()
+
