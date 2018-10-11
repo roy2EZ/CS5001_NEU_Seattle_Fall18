@@ -12,7 +12,6 @@
 # 001 => 1
 
 def binary_to_decimal(binary):
-
     decimal=0
     i=0
     while i < len(binary):

@@ -1,0 +1,13 @@
+1A:0
+1B:1
+1C:5
+1D:14
+
+2A:The expression is false, the program stops and raises an AssertionError exception.
+2B:The expression is true, the program does nothing and moves to the next line of code.
+2C:The overall test failed
+
+
+
+
+
