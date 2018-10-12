@@ -98,7 +98,7 @@ def length_tooshort(password):
     return (len(password) >= 6)
 #### Tests
 def test_length_tooshort():
-    assert(length_tooshort("!2cD56") ==  True)
+    assert(length_tooshort("!2cD56") == True)
     assert(length_tooshort("!2cD5") == False)
 
 #### Purpose
@@ -118,7 +118,7 @@ def length_toolong(password):
     return (len(password) <= 12)
 #### Tests
 def test_length_toolong():
-    assert(length_toolong("0!23456789Ab") ==  True)
+    assert(length_toolong("0!23456789Ab") == True)
     assert(length_toolong("0!23456789Abc") == False)
 
 #### Main Function Definition
