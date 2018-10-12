@@ -95,7 +95,8 @@ def test_is_spec_char():
 # is_length_tooshort("12345") => False
 #### Function Definition
 def length_tooshort(password):
-    return (len(password) >= 6)
+    min_len = 6
+    return (len(password) >= min_len)
 #### Tests
 def test_length_tooshort():
     assert(length_tooshort("!2cD56") == True)
@@ -115,7 +116,8 @@ def test_length_tooshort():
 # is_length_toolong("0!23456789Abc") => False
 #### Function Definition
 def length_toolong(password):
-    return (len(password) <= 12)
+    max_len = 12
+    return (len(password) <= max_len)
 #### Tests
 def test_length_toolong():
     assert(length_toolong("0!23456789Ab") == True)
