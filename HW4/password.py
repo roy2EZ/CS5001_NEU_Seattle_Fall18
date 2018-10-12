@@ -143,7 +143,7 @@ def main():
         print("This is a valid password.")
 
 #### Run the main function        
-
+main()
 
 
     
