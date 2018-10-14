@@ -89,7 +89,6 @@ def main():
         print("Sorry, please double check the station name(s) you entered.")
         main()
  
-main()
 
     
         
