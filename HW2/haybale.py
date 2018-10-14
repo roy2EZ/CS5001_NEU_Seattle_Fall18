@@ -36,7 +36,7 @@ def haybalemase_bill(temp,day,time,if_rain):
     weather_extra=0
     
     #when temperature input is invalid, force default it as the max temperature 75F
-    if temp < 0 & temp > 99:
+    if temp < 0 or temp > 99:
         temp=MAX_TEMP
         #when temperature is over max, every degree will charge an rate as ABOVE_TEMP_RATE
     if temp>=MAX_TEMP and temp<=99:
@@ -71,7 +71,7 @@ def haybalemase_bill(temp,day,time,if_rain):
     else:
         weather_extra=0
     #return the final price with base price adding all extra fees, round the result with 2 digits of
-    return "Your final price for the maze is: $"+ str("%.2f" % (BASE_PRICE+temp_extra+day_extra+weather_extra))
+    return "Your final price for the maze is: $"+ str("%.2f" % (BASE_PRICE+temp_extra+day_extra-weather_extra))
 
 temp= int(input("What is the temprature now?\n"))
 day = input("What day of the week is it?\n").lower()

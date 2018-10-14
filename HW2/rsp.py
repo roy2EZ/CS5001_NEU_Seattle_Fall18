@@ -1,3 +1,4 @@
+import random
 #### Purpose
 # To prompt the user to input rock, scissors or paper and
 # and make a random throw of rock, scissors or paper to play the game with user
@@ -12,7 +13,6 @@
 #  s vs S => OMG it's a tie!!!
 #  paper vs S => Scissors cut paper! You lose!
 #  ninja => That is not a rock, scissors, or paper, sorry, no game
-import random
 
 #Welcome title
 print("Let's play! RSP Human vs Machine EPIC SHOWDOWN.")
