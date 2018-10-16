@@ -155,9 +155,3 @@ def main():
         main() 
     else:
         print("This is a valid password.")
-
-
-
-    
-
-
