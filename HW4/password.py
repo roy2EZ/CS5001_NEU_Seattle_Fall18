@@ -126,15 +126,27 @@ def test_length_toolong():
 #### Main Function Definition
 def main():
     password = input("Please enter a password: \n")
-    if is_letter(password) == False:
-        print("Please enter valid password with at least 1 letter.")
+    if ((is_letter(password) == False) and (is_number(password) == False) and (is_spec_char(password) == False)):
+        print("Please enter valid password with at least 1 letter, 1 number and 1 special character of $, #, @ or !.")
         main()       
-    elif is_number(password) == False:
-        print("Please enter valid password with at least 1 number:0-9")
+    elif ((is_number(password) == False) and (is_spec_char(password) == False)):
+        print("Please enter valid password with at least 1 number and 1 special character of $, #, @ or !")
         main()                
+    elif  ((is_letter(password) == False) and (is_number(password) == False)):
+        print("Please enter valid password with at least 1 letter and 1 number")
+        main() 
+    elif  ((is_letter(password) == False) and (is_spec_char(password) == False)):
+        print("Please enter valid password with at least 1 letter and 1 special character of $, #, @ or !")
+        main() 
+    elif  is_letter(password) == False:
+        print("Please enter valid password with at least 1 letter")
+        main() 
+    elif  is_number(password) == False:
+        print("Please enter valid password with at least 1 number")
+        main() 
     elif  is_spec_char(password) == False:
         print("Please enter valid password with at least 1 special character of $, #, @ or !")
-        main() 
+        main()
     elif length_tooshort(password) == False:
         print("Please enter valid password with at least 6 characters.")
         main() 
