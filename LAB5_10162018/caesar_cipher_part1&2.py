@@ -51,23 +51,6 @@ def main():
 
 
 
-# Part 3: To create a decryption function with shift and slide
-
-# Part 3.1: Shift
-def decryption_shift(ciphertext):
-    length = len(ciphertext)
-    # To create a empty plaintext list for carrying future output
-    plaintext = [list() for j in range(length)]
-    # Try all shift from 0 to 25 to show every plaintext result at the output
-    for shift in range(26):
-        # Transfer each letter in ciphertext to plaintext 
-        for i in range(length):
-            if ciphertext[i].lower() in list_alphabet: 
-                j =  (int(list_alphabet.index(ciphertext[i].lower())) - shift) % 26
-                plaintext[i] = list_alphabet[j]
-            else:
-                plaintext[i] = ciphertext[i].lower()
-        print(str(shift) + ": " + str("".join(plaintext)))
-         
+        
 
 
