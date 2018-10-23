@@ -1,0 +1,11 @@
+call  s         Base Case  Printed
+1     abceba    N          n/a
+2     bceb      N      	   n/a
+3     ce        N	   n/a
+4               Y	   True
+
+
+return  s(line5)  	retured(line5)
+1	ce		False
+2	bceb		False	
+3	abceba		False
