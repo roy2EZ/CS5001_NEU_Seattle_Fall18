@@ -4,6 +4,7 @@ SQUARE = 50
 color_list = ["Black","White"]
 position = list()
 position_dict = {}
+
 def draw_board(n):
     ''' Function: draw_board
         Parameters: n, an int for # of squares
@@ -62,7 +63,7 @@ def initPositionDict(n):
             position_dict["position %d"%(count)] = position[count-1]
     return position_dict    
 
-def initFirstFourCircle(n,color_number):
+def initFirstFourTile(n,color_number):
     x=int(n/2)
     y=int(n/2)
     for x in range(int(n/2),int(n/2 + 2)):
@@ -89,7 +90,7 @@ def initFirstFourCircle(n,color_number):
                   
 
 
-def drawCircle(n,x,y,color_number):
+def drawTile(n,x,y,color_number):
     color = color_list[color_number % 2]
     othello = turtle.Turtle()
     othello.hideturtle()
@@ -131,11 +132,11 @@ def main():
             continue
         else:
             break
-    initFirstFourCircle(n,color_number)
+    initFirstFourTile(n,color_number)
     while True:
         while True:
             try:
-                x= int(input("Please enter the row number (1 to %d as bottom to top) to set your piece: " %n))
+                x= int(input("Please enter the row number (1 to %d as bottom to top) to set your tile: " %n))
                 if x < 1 or x > 4:
                     raise ValueError
             except ValueError:
@@ -145,7 +146,7 @@ def main():
                 break   
         while True:
             try:
-                y= int(input("Please enter the column number (1 to %d as left to right) to set your piece: " %n))
+                y= int(input("Please enter the column number (1 to %d as left to right) to set your tile: " %n))
                 if x < 1 or x > 4:
                     raise ValueError
             except ValueError:
@@ -153,13 +154,11 @@ def main():
                 continue
             else:
                 break        
-        drawCircle(n,x,y,color_number - 1)
+        drawTile(n,x,y,color_number - 1)
         color_number+=1
         color = color_list[color_number % 2]
         print("Now it's turn of %s to go: " % color)
         
-
-    
 main()
 
 turtle.done()
