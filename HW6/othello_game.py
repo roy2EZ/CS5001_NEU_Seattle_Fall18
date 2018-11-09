@@ -5,6 +5,7 @@ color_list = ["Black","White"]
 position = list()
 position_dict = {}
 
+
 def draw_board(n):
     ''' Function: draw_board
         Parameters: n, an int for # of squares
@@ -61,8 +62,13 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
-# To iniinitialize a dictionary of all legal positions for future use
+
 def initPositionDict(n):
+    ''' Function: initPositionDict
+        Parameters: n, an int for # of squares
+        Returns: Dictionary
+        Does: initialize a dictionary of all legal positions for future use
+    '''
     count = 0
     for x in range(1,n+1):
         for y in range(1,n+1):
@@ -71,8 +77,14 @@ def initPositionDict(n):
             position_dict["position %d"%(count)] = position[count-1]
     return position_dict    
 
-# To initialize the first four tiles to start the game
+
 def initFirstFourTile(n,color_number):
+    ''' Function: initFirstFourTile
+        Parameters: n, an int for # of squares
+        Parameters: color_number, an int for representing black or white
+        Returns: nothing
+        Does: initialize the first four tiles to start the game
+    '''
     x=int(n/2)
     y=int(n/2)
     for x in range(int(n/2),int(n/2 + 2)):
@@ -98,10 +110,15 @@ def initFirstFourTile(n,color_number):
     print()   
     print("You choose %s. Ready? Game starts!" % color)
            
-                  
-
-# To draw the tile with expected position and color
 def drawTile(n,x,y,color_number):
+    ''' Function: initFirstFourTile
+        Parameters: n, an int for # of squares
+        Parameters: x, an int for row number
+        Parameters: y, an int for column number
+        Parameters: color_number, an int for representing black or white
+        Returns: nothing
+        Does: draw the tile with expected position and color
+    '''
     color = color_list[color_number % 2]
     othello = turtle.Turtle()
     othello.hideturtle()
@@ -116,15 +133,13 @@ def drawTile(n,x,y,color_number):
     othello.circle(SQUARE/2)
     othello.end_fill()
     
-    
-    
-
 # main function for running the game
 def main():
+    print("Welcome to Othello Game!")
     # Prompt user to enter the size of board
     while True:
         try:
-            n = int(input("Please enter your board size: "))
+            n = int(input("Please enter board size: "))
             if n % 2 != 0:
                 raise ValueError
         except ValueError:
@@ -173,13 +188,14 @@ def main():
                 continue
             else:
                 break   
-
+        # To draw the tile
         color_number+=1          
         drawTile(n,x,y,color_number)
         color = color_list[(color_number+1) % 2]
         print()
         print("Now it's turn of %s to go: " % color)
-        
+
+# Run the main function to start the game        
 main()
 
 turtle.done()
