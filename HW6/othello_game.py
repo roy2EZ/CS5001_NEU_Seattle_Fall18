@@ -5,7 +5,6 @@ color_list = ["Black","White"]
 position = list()
 position_dict = {}
 
-
 def draw_board(n):
     ''' Function: draw_board
         Parameters: n, an int for # of squares
