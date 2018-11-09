@@ -63,8 +63,8 @@ def draw_lines(turt, n):
     turt.penup()
 
 
-def initPositionDict(n):
-    ''' Function: initPositionDict
+def init_position_dict(n):
+    ''' Function: init_position_dict
         Parameters: n, an int for # of squares
         Returns: Dictionary
         Does: initialize a dictionary of all legal positions for future use
@@ -78,8 +78,8 @@ def initPositionDict(n):
     return position_dict    
 
 
-def initFirstFourTile(n,color_number):
-    ''' Function: initFirstFourTile
+def init_first_four_tiles(n,color_number):
+    ''' Function: init_first_four_tiles
         Parameters: n, an int for # of squares
         Parameters: color_number, an int for representing black or white
         Returns: nothing
@@ -110,8 +110,8 @@ def initFirstFourTile(n,color_number):
     print()   
     print("You choose %s. Ready? Game starts!" % color)
            
-def drawTile(n,x,y,color_number):
-    ''' Function: initFirstFourTile
+def draw_tile(n,x,y,color_number):
+    ''' Function: draw_tile
         Parameters: n, an int for # of squares
         Parameters: x, an int for row number
         Parameters: y, an int for column number
@@ -150,7 +150,7 @@ def main():
     # To draw the board        
     draw_board(n)
     # To iniinitialize a dictionary of all legal positions for future use
-    initPositionDict(n)
+    init_position_dict(n)
     # To prompt user to choose a color for his tile
     while True:
         try:
@@ -163,7 +163,7 @@ def main():
         else:
             break
     # To initialize the first four tiles to start the game        
-    initFirstFourTile(n,color_number)
+    init_first_four_tiles(n,color_number)
 
     # To let user input column number of expected tile position
     while True:
@@ -189,8 +189,8 @@ def main():
             else:
                 break   
         # To draw the tile
-        color_number+=1          
-        drawTile(n,x,y,color_number)
+        color_number += 1          
+        draw_tile(n,x,y,color_number)
         color = color_list[(color_number+1) % 2]
         print()
         print("Now it's turn of %s to go: " % color)
