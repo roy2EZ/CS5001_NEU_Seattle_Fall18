@@ -48,12 +48,20 @@ def draw_board(n):
         othello.setposition(SQUARE * i + corner, corner)
         draw_lines(othello, n)
 
+    # Write coordinates for user easily to find row and column number
+    for i in range(n):
+        othello.setposition(corner+SQUARE/2+i*SQUARE,corner-18)
+        othello.write("%d" % int(i+1), font=("Arial", 10, "normal")) 
+    for j in range(n):
+        othello.setposition(corner-10,corner+SQUARE/3+j*SQUARE)
+        othello.write("%d" % int(j+1), font=("Arial", 10, "normal"))
+
 def draw_lines(turt, n):
     turt.pendown()
     turt.forward(SQUARE * n)
     turt.penup()
 
-
+# To iniinitialize a dictionary of all legal positions for future use
 def initPositionDict(n):
     count = 0
     for x in range(1,n+1):
@@ -63,6 +71,7 @@ def initPositionDict(n):
             position_dict["position %d"%(count)] = position[count-1]
     return position_dict    
 
+# To initialize the first four tiles to start the game
 def initFirstFourTile(n,color_number):
     x=int(n/2)
     y=int(n/2)
@@ -85,11 +94,13 @@ def initFirstFourTile(n,color_number):
             othello.penup()
             color_number += 1
         color_number += 1
-    print("Ready? Game starts!")
+    color = color_list[(color_number+1) % 2] 
+    print()   
+    print("You choose %s. Ready? Game starts!" % color)
            
                   
 
-
+# To draw the tile with expected position and color
 def drawTile(n,x,y,color_number):
     color = color_list[color_number % 2]
     othello = turtle.Turtle()
@@ -108,8 +119,9 @@ def drawTile(n,x,y,color_number):
     
     
 
-
+# main function for running the game
 def main():
+    # Prompt user to enter the size of board
     while True:
         try:
             n = int(input("Please enter your board size: "))
@@ -120,43 +132,52 @@ def main():
             continue
         else:
             break
+    # To draw the board        
     draw_board(n)
+    # To iniinitialize a dictionary of all legal positions for future use
     initPositionDict(n)
+    # To prompt user to choose a color for his tile
     while True:
         try:
-            color_number = int(input("Please choose your color by entering: \"1\" for black, \"2\" for white: "))
+            color_number = int(input("Please choose your color by entering: \"1\" for Black, \"2\" for White: "))
             if color_number not in [1,2]:
                 raise ValueError
         except ValueError:
-            print("Valid color should be \"1\" for black or \"2\" for white.")
+            print("Valid color should be \"1\" for Black or \"2\" for White.")
             continue
         else:
             break
+    # To initialize the first four tiles to start the game        
     initFirstFourTile(n,color_number)
+
+    # To let user input column number of expected tile position
     while True:
         while True:
             try:
-                x= int(input("Please enter the row number (1 to %d as bottom to top) to set your tile: " %n))
-                if x < 1 or x > 4:
+                y = int(input("Please enter the column number (1 to %d as left to right) to set your tile: " %n))
+                if y < 1 or y > n:
                     raise ValueError
             except ValueError:
-                print("Valid range should be 1~4.")
+                print("Valid range should be 1~%d." %n)
+                continue
+            else:
+                break 
+        # To let user input row number of expected tile position        
+        while True:
+            try:
+                x = int(input("Please enter the row number (1 to %d as bottom to top) to set your tile: " %n))
+                if x < 1 or x > n:
+                    raise ValueError
+            except ValueError:
+                print("Valid range should be 1~%d." %n)
                 continue
             else:
                 break   
-        while True:
-            try:
-                y= int(input("Please enter the column number (1 to %d as left to right) to set your tile: " %n))
-                if x < 1 or x > 4:
-                    raise ValueError
-            except ValueError:
-                print("Valid range should be 1~4.")
-                continue
-            else:
-                break        
-        drawTile(n,x,y,color_number - 1)
-        color_number+=1
-        color = color_list[color_number % 2]
+
+        color_number+=1          
+        drawTile(n,x,y,color_number)
+        color = color_list[(color_number+1) % 2]
+        print()
         print("Now it's turn of %s to go: " % color)
         
 main()
