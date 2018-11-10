@@ -1,0 +1,128 @@
+Design flow for Homework 6:
+1.Draw the board
+2.Prompt user to choose a color
+3.Draw first four tiles
+4.Prompt user to enter column and row numbers to set the position of his tile
+
+Pseudocode:
+
+# Part 1: Draw the board
+
+# 1.1: Draw the board using stater code from teacher 
+function draw_board(n): 
+    create the turtle to draw the board
+    set line color and fill color 
+    move the turtle to the bottom left corner
+
+# 1.2 My adding: write coordinates around the board
+# Purpose: user can easily see the column and row number for entering the tile
+# Note: the board is n column * n row, each block's side length as SQUARE = 50
+# I use n=4 for example above.
+
+# 1.2.1 write column numbers at bottom of the board
+for each i in 1 to 4:
+    set the position at the bottom outside of "column 1 row 1" (left bottom corner)
+    write number 1 to 4 from left to right, interval = SQUARE 
+
+# 1.2.2 write column numbers at bottom of the board        
+for j in range(n):
+    set the position at left outside of "column 1 row 1" (left bottom corner)
+    write number 1 to 4 from bottom to top, interval = SQUARE 
+----------------------------------------------------------------------------------------
+# 1.3 draw_lines function will be used in draw_board 
+function draw_lines(turt,n):
+    draw lines, interval = SQUARE	
+----------------------------------------------------------------------------------------
+
+# Part 2: initialization tiles and related functions for future design use 
+
+# 2.1 init_position_dict function:
+# After draw the n*n board, I want to create a dictionary to restore all positions
+# the elements in that dictionary will be as {1:[1,1], 2:[1,2] ... 16:[4,4]} (when n=4)
+# which means there are totally 16 positions with ite column and row number as value
+# This is for future use in Homework 7, pseudocode not design yet.
+----------------------------------------------------------------------------------------
+# 2.2 After user choose color, set the first four tiles to start the game
+# This function will call draw_tile function at four specific initial positions
+# For example, if user color is black and n=4: 
+# we draw black tile at column 2 row 2, and column 3 row 3
+# we draw white tile at column 3 row 2, and column 2 row 3
+function init_first_four_tiles(n=4,color):
+    for x in [2,3]:
+        for y in [2,3]:
+            draw_tile(4,x,y,color)
+            color_number add 1 to change color
+        color_number add 1 to change color
+----------------------------------------------------------------------------------------
+# 2.3 define draw_tile function for drawing the tile at position row x column y 
+function draw_tile(n,x,y,color_number):
+    set position at column y row x
+    fill color with current color_number's color
+    draw a circle, radius = SQUARE/2
+    end fill
+----------------------------------------------------------------------------------------
+# Part 3: create main function to run the game 
+# 3.1 Prompt user to enter the size of board n, and n should be even number.
+# Note: I use Exception handling until get valid input of n
+function main()
+while True:
+    try:
+	user input n
+        if n is not even number
+            raise ValueError
+    except ValueError:
+        print guidance to let user input even number
+        continue
+    else:
+        break
+# 3.2 draw the n*n board using user input n 
+draw_board(n)
+# 3.3 iniinitialize a dictionary of all legal positions for future use
+init_position_dict(n) 
+# 3.4 prompt user to choose a color of his tile
+# Note: I use Exception handling until get valid input of color_number
+while True:
+    try:
+        user input color_number, 1 for black, 2 for white
+        if color_number not in [1,2]:
+            raise ValueError
+    except ValueError:
+        print guidance to let user input 1 or 2
+        continue
+    else:
+        break
+# 3.5 initialize the first four tiles 
+init_first_four_tiles(n,color_number)
+# 3.6 let user input column number "y" of expected tile position
+# the first while loop is for future use to stop the loop to exit game
+while True:
+    # following while loop is for Exception handling of y
+    while True:
+        try:
+            user input y
+            if y < 1 or y > n:
+                raise ValueError
+        except ValueError:
+            print guidance to let user input valid y
+            continue
+        else:
+            break 
+# 3.7 let user input row number "x" of expected tile position
+    # following while loop is for Exception handling of y    
+    while True:
+        try:
+            user input x
+            if x < 1 or x > n:
+                raise ValueError
+        except ValueError:
+            print guidance to let user input valid x
+            continue
+        else:
+            break
+----------------------------------------------------------------------------------------
+# Part 4: run the main() function
+main()
+turtle.done()
+
+
+	

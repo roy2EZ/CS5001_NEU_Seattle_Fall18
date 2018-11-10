@@ -2,16 +2,14 @@ import turtle
 from turtle import Turtle, colormode
 SQUARE = 50
 color_list = ["Black","White"]
-position = list()
-position_dict = {}
 
+# Function: draw_board
+# Parameters: n, an int for # of squares
+# Signature: draw_board:: Integer => Void
+# Returns: nothing
+# Does: Draws an nxn board with a green background
+# Example: draw_board(4) => a 4*4 board 
 def draw_board(n):
-    ''' Function: draw_board
-        Parameters: n, an int for # of squares
-        Returns: nothing
-        Does: Draws an nxn board with a green background
-    '''
-
     turtle.setup(n * SQUARE + SQUARE, n * SQUARE + SQUARE)
     turtle.screensize(n * SQUARE, n * SQUARE)
     turtle.bgcolor('white')
@@ -61,13 +59,16 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
-
+# Function: init_position_dict (for future use in HW7)
+# Parameters: n, an int for # of squares
+# Signature: init_position_dict :: Integer => Dictionary  
+# Returns: Dictionary
+# Does: initialize a dictionary of all positions on the board   
+# Example: init_position_dict(2) =>
+# {'position 1': [1, 1], 'position 2': [1, 2], 'position 3': [2, 1], 'position 4': [2, 2], }
 def init_position_dict(n):
-    ''' Function: init_position_dict
-        Parameters: n, an int for # of squares
-        Returns: Dictionary
-        Does: initialize a dictionary of all legal positions for future use
-    '''
+    position = list()
+    position_dict = {}
     count = 0
     for x in range(1,n+1):
         for y in range(1,n+1):
@@ -76,56 +77,45 @@ def init_position_dict(n):
             position_dict["position %d"%(count)] = position[count-1]
     return position_dict    
 
-
+# Function: init_first_four_tiles
+# Parameters: n, an int for # of squares
+# Parameters: color_number, an int for representing black or white
+# Signature: init_first_four_tiles :: (Integer,Integer) => Void
+# Returns: nothing
+# Does: initialize the first four tiles to start the game
+# Example: init_first_four_tiles(4,1) => 
+# draw black tile at column 2 row 2, and column 3 row 3
+# draw white tile at column 3 row 2, and column 2 row 3
 def init_first_four_tiles(n,color_number):
-    ''' Function: init_first_four_tiles
-        Parameters: n, an int for # of squares
-        Parameters: color_number, an int for representing black or white
-        Returns: nothing
-        Does: initialize the first four tiles to start the game
-    '''
     x=int(n/2)
     y=int(n/2)
     for x in range(int(n/2),int(n/2 + 2)):
         for y in range(int(n/2),int(n/2 + 2)):
-            color_list = ["Black","White"]
-            color = color_list[color_number % 2]
-            othello = turtle.Turtle()
-            othello.hideturtle()
-            othello.penup()
-            corner = -n * SQUARE / 2
-            othello.setposition(corner+SQUARE/2+(y-1)*SQUARE, corner+(x-1)*SQUARE)
-            othello.pendown()
-            othello.speed(200)
-            othello.color('black')
-            othello.fillcolor(color)
-            othello.begin_fill()
-            othello.circle(SQUARE/2)
-            othello.end_fill()
-            othello.penup()
+            draw_tile(n,x,y,color_number)
             color_number += 1
         color_number += 1
     color = color_list[(color_number+1) % 2] 
     print()   
     print("You choose %s. Ready? Game starts!" % color)
-           
+
+# Function: draw_tile
+# Signature: draw_tile :: (Integer,Integer,Integer,Integer) => Void
+# Parameters: n, an int for # of squares
+# Parameters: x, an int for row number
+# Parameters: y, an int for column number
+# Parameters: color_number, an int for representing black or white
+# Returns: nothing
+# Does: draw the tile with expected position and color
+# Example: draw_tile(4,1,1,1) => draw a black tile at column 1 row 1          
 def draw_tile(n,x,y,color_number):
-    ''' Function: draw_tile
-        Parameters: n, an int for # of squares
-        Parameters: x, an int for row number
-        Parameters: y, an int for column number
-        Parameters: color_number, an int for representing black or white
-        Returns: nothing
-        Does: draw the tile with expected position and color
-    '''
     color = color_list[color_number % 2]
     othello = turtle.Turtle()
     othello.hideturtle()
+    othello.speed(0)
     othello.penup()   
     corner = -n * SQUARE / 2
     othello.setposition(corner+SQUARE/2+(y-1)*SQUARE, corner+(x-1)*SQUARE)
     othello.pendown()
-    othello.speed(200)
     othello.color('black')
     othello.fillcolor(color)
     othello.begin_fill()
@@ -163,7 +153,6 @@ def main():
             break
     # To initialize the first four tiles to start the game        
     init_first_four_tiles(n,color_number)
-
     # To let user input column number of expected tile position
     while True:
         while True:
