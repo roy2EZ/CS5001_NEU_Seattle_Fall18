@@ -2,6 +2,9 @@ import turtle
 from turtle import Turtle, colormode
 SQUARE = 50
 color_list = ["Black","White"]
+empty_position_dict = {}
+occupied_position_dict = {}
+
 
 # Function: draw_board
 # Parameters: n, an int for # of squares
@@ -59,24 +62,22 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
-# Function: init_position_dict (for future use in HW7)
+# Function: init_empty_position_dict (for future use in HW7)
 # Parameters: n, an int for # of squares
-# Signature: init_position_dict :: Integer => Dictionary  
+# Signature: init_empty_position_dict :: Integer => Dictionary  
 # Returns: Dictionary
-# Does: initialize a dictionary of all positions on the board   
-# Example: init_position_dict(2) =>
-# {'position 1': [1, 1], 'position 2': [1, 2], 'position 3': [2, 1], 'position 4': [2, 2], }
-def init_position_dict(n):
-    position = list()
-    position_dict = {}
+# Does: initialize a dictionary of all positions on the board with color as None
+#       the dictionary can be use to restore all tiles color and position info for future use  
+# Example: init_empty_position_dict(2) =>
+# {(1, 1): None, (1, 2): None, (2, 1): None, (2, 2): None}
+def init_empty_position_dict(n):
     count = 0
-    for x in range(1,n+1):
-        for y in range(1,n+1):
-            position.append([x,y])
-            count += 1
-            position_dict["position %d"%(count)] = position[count-1]
-    return position_dict    
-
+    color = None
+    for y in range(1,n+1):
+        for x in range(1,n+1):
+            empty_position_dict[y,x] = color
+    return empty_position_dict     
+ 
 # Function: init_first_four_tiles
 # Parameters: n, an int for # of squares
 # Parameters: color_number, an int for representing black or white
@@ -92,11 +93,20 @@ def init_first_four_tiles(n,color_number):
     for x in range(int(n/2),int(n/2 + 2)):
         for y in range(int(n/2),int(n/2 + 2)):
             draw_tile(n,x,y,color_number)
+            color = color_list[(color_number+1) % 2]
+            empty_position_dict[y,x] = color
+            # pop that tile into occupied_position_dict
+            occupied_position_dict[y,x] = empty_position_dict.pop((y,x))
+            # change tile color
             color_number += 1
+        # do same thing when x changed   
+        empty_position_dict[y,x] = color
+        occupied_position_dict[y,x] = empty_position_dict.pop((y,x))
         color_number += 1
-    color = color_list[(color_number+1) % 2] 
     print()   
     print("You choose %s. Ready? Game starts!" % color)
+    
+    
 
 # Function: draw_tile
 # Signature: draw_tile :: (Integer,Integer,Integer,Integer) => Void
@@ -121,6 +131,11 @@ def draw_tile(n,x,y,color_number):
     othello.begin_fill()
     othello.circle(SQUARE/2)
     othello.end_fill()
+    # Restore the tile color at column y row x into empty_position_dict
+    empty_position_dict[y,x] = color
+    # pop that tile into occupied_position_dict
+    occupied_position_dict[y,x] = empty_position_dict.pop((y,x))
+    
     
 # main function for running the game
 def main():
@@ -139,7 +154,7 @@ def main():
     # To draw the board        
     draw_board(n)
     # To iniinitialize a dictionary of all legal positions for future use
-    init_position_dict(n)
+    init_empty_position_dict(n)
     # To prompt user to choose a color for his tile
     while True:
         try:
@@ -151,6 +166,7 @@ def main():
             continue
         else:
             break
+      
     # To initialize the first four tiles to start the game        
     init_first_four_tiles(n,color_number)
     # To let user input column number of expected tile position
@@ -182,6 +198,7 @@ def main():
         color = color_list[(color_number+1) % 2]
         print()
         print("Now it's turn of %s to go: " % color)
+       
 
 # Run the main function to start the game        
 main()
