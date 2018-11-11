@@ -1,0 +1,33 @@
+Tests:
+
+1. turtle(drawing graph) related functions' tests/examples:
+
+1.1 draw_board(n)
+draw_board(4) => draw a 4*4 board
+draw_board(8) => draw a 8*8 board
+
+1.2 init_first_four_tiles(n,color_number)
+init_first_four_tiles(4,1) => (1) draw black tiles at row 2 column 2 and row 3 column 3
+				  draw white tiles at row 2 column 3 and row 3 column 2 
+			      (2) empty_position_dict should pop related elements
+                              (3) occupied_position_dict should add related elements
+init_first_four_tiles(8,2) => (1) draw white tiles at row 4 column 4 and row 5 column 5 
+				  draw black tiles at row 4 column 5 and row 5 column 4
+			      (2) empty_position_dict should pop related elements
+                              (3) occupied_position_dict should add related elements
+
+1.3 draw_tile(n,x,y,color_number)
+draw_tile(4,2,4,1) => (1)draw a black tile at row 2 column 4 in 4*4 board
+                      (2)empty_position_dict should pop element (2,4):None
+                      (3)occupied_position_dict should add element (2,4):Black 
+draw_tile(8,3,7,2) => (1)draw a white tile at row 3 column 7 in 8*8 board
+		      (2)empty_position_dict should pop element (3,7):None
+                      (3)occupied_position_dict should add element (3,7):White 
+
+2.functions can be tested by pytest:
+def test_init_empty_position_dict():
+    assert(init_empty_position_dict(2) == {(1, 1): None, (1, 2): None, (2, 1): None, (2, 2): None})
+    assert(init_empty_position_dict(4) == {(1, 1): None, (1, 2): None, (1, 3): None, (1, 4): None,
+                                           (2, 1): None, (2, 2): None, (2, 3): None, (2, 4): None,
+                                           (3, 1): None, (3, 2): None, (3, 3): None, (3, 4): None, 
+                                           (4, 1): None, (4, 2): None, (4, 3): None, (4, 4): None})  
