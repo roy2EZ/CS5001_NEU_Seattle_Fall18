@@ -86,25 +86,27 @@ def init_empty_position_dict(n):
 # Example: init_first_four_tiles(4,1) => 
 # draw black tile at column 2 row 2, and column 3 row 3
 # draw white tile at column 3 row 2, and column 2 row 3
-def init_first_four_tiles(n,color_number):
+def init_first_four_tiles(n):
+    global color_number
     x=int(n/2)
     y=int(n/2)
     for y in range(int(n/2),int(n/2 + 2)):
         for x in range(int(n/2),int(n/2 + 2)):
             color = color_list[(color_number-1) % 2]
             draw_tile(n,x,y,color_number)
-            updateDict(x,y,color_number)
+            update_dict(x,y,color_number)
             color_number += 1
         # do same thing when x changed   
         color_number += 1
     print()
     color = color_list[(color_number-1) % 2]
     print("You choose %s. Ready? Game starts!" % color)
-    
-def updateDict(x,y,color_number): 
+
+
+# Function update_dict: initialize the first four tiles to start the game
+def update_dict(x,y,color_number): 
     empty_position_dict[x,y] = color_list[(color_number-1) % 2]
     occupied_position_dict[x,y] = empty_position_dict.pop((x,y))
-
 
 # Function: draw_tile
 # Signature: draw_tile :: (Integer,Integer,Integer,Integer) => Void
@@ -122,24 +124,45 @@ def draw_tile(n,x,y,color_number):
     othello.speed(0)
     othello.penup()   
     corner = -n * SQUARE / 2
-    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE)
+    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+1)
     othello.pendown()
     othello.color('black')
     othello.fillcolor(color)
     othello.begin_fill()
-    othello.circle(SQUARE/2)
+    othello.circle(SQUARE/2-1)
     othello.end_fill()
-    updateDict(x,y,color_number)
+    update_dict(x,y,color_number)
    #uncomment following to print dictionaries for checking if updated 
-   #print(occupied_position_dict) 
-   #print(empty_position_dict) 
-       
+    print("Occupied positions:\n %s " %occupied_position_dict) 
+    print("Empty positions:\n %s " %empty_position_dict) 
+
+# Function: get_pos_to_draw
+# Signature: get_pos_to_draw :: (Integer,Integer) => Void
+# Parameters: x, an int for row number
+# Parameters: y, an int for column number
+# Returns: nothing
+# Does: got the position when the mouse click on the board
+#       and draw a tile on that position with the current color       
+def get_pos_to_draw(i,j):
+    global x
+    global y
+    global color_number
+    x=int(i/SQUARE+1+n/2)
+    y=int(j/SQUARE+1+n/2)
+    if x <= n and y <= n:
+        draw_tile(n,y,x,color_number)
+        color_number+=1    
+
+
+
+
 # main function for running the game
 def main():
     print("Welcome to Othello Game!")
     # Prompt user to enter the size of board
     while True:
         try:
+            global n 
             n = int(input("Please enter board size: "))
             if n % 2 != 0:
                 raise ValueError
@@ -148,13 +171,15 @@ def main():
             continue
         else:
             break
-    # To draw the board        
+    
     draw_board(n)
-    # To iniinitialize a dictionary of all legal positions for future use
+
     init_empty_position_dict(n)
-    # To prompt user to choose a color for his tile
+
+    # Prompt user to choose color
     while True:
         try:
+            global color_number
             color_number = int(input("Please choose your color by entering: \"1\" for Black, \"2\" for White: "))
             if color_number not in [1,2]:
                 raise ValueError
@@ -163,42 +188,12 @@ def main():
             continue
         else:
             break
+    init_first_four_tiles(n)
+    # click on position on the board to draw tile
+    s = turtle.getscreen()
+    s.onclick(get_pos_to_draw)
+    turtle.hideturtle()
       
-    # To initialize the first four tiles to start the game        
-    init_first_four_tiles(n,color_number)
-    
-    while True:
-        # To let user input row number of expected tile position        
-        while True:
-            try:
-                x = int(input("Please enter the row number (1 to %d as bottom to top) to set your tile: " %n))
-                if x < 1 or x > n:
-                    raise ValueError
-            except ValueError:
-                print("Valid range should be 1~%d." %n)
-                continue
-            else:
-                break   
-        # To let user input column number of expected tile position
-        while True:
-            try:
-                y = int(input("Please enter the column number (1 to %d as left to right) to set your tile: " %n))
-                if y < 1 or y > n:
-                    raise ValueError
-            except ValueError:
-                print("Valid range should be 1~%d." %n)
-                continue
-            else:
-                break 
-        
-        # To draw the tile        
-        draw_tile(n,x,y,color_number)
-        print()
-        print("Now it's turn of %s to go: " % color_list[color_number % 2])
-        color_number+=1
-       
 
-# Run the main function to start the game        
 main()
-
 turtle.done()
