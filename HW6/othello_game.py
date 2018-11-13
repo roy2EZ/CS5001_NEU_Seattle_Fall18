@@ -132,10 +132,12 @@ def draw_tile(n,x,y,color_number):
     othello.circle(SQUARE/2-1)
     othello.end_fill()
     update_dict(x,y,color_number)
+    if empty_position_dict == {}:
+        print("No more position.")
    #uncomment following to print dictionaries for checking if updated 
-    print("Occupied positions:\n %s " %occupied_position_dict) 
-    print("Empty positions:\n %s " %empty_position_dict) 
-
+   #print("Occupied positions:\n %s " %occupied_position_dict) 
+   #print("Empty positions:\n %s " %empty_position_dict) 
+    
 # Function: get_pos_to_draw
 # Signature: get_pos_to_draw :: (Integer,Integer) => Void
 # Parameters: x, an int for row number
@@ -193,6 +195,7 @@ def main():
     s = turtle.getscreen()
     s.onclick(get_pos_to_draw)
     turtle.hideturtle()
+     
       
 
 main()
