@@ -134,13 +134,19 @@ def draw_tile(n,x,y,color_number):
     othello.end_fill()
     othello.penup() 
     update_dict(x,y,color_number)
-    if empty_position_dict == {}:
-        print("No more position.")
-        os._exit(0)
    #uncomment following to print dictionaries for checking if updated 
    #print("Occupied positions:\n %s " %occupied_position_dict) 
    #print("Empty positions:\n %s " %empty_position_dict) 
-    
+    is_game_over()
+
+# function is_game_over() will check the empty_position_dict. 
+# if that dict become empty, it will call result related function in HW7     
+def is_game_over():
+    if empty_position_dict == {}:
+            # In home work 7 here will be calling result related function
+            print("No more position.")
+            os._exit(0)
+
 # Function: get_pos_to_draw
 # Signature: get_pos_to_draw :: (Integer,Integer) => Void
 # Parameters: x, an int for row number
