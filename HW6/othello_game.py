@@ -124,12 +124,12 @@ def draw_tile(n,x,y,color_number):
     othello.speed(0)
     othello.penup()   
     corner = -n * SQUARE / 2
-    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+1)
+    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
     othello.pendown()
     othello.color('black')
     othello.fillcolor(color)
     othello.begin_fill()
-    othello.circle(SQUARE/2-1)
+    othello.circle(SQUARE/2-5)
     othello.end_fill()
     update_dict(x,y,color_number)
     if empty_position_dict == {}:
