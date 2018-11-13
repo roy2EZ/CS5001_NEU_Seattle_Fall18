@@ -1,4 +1,5 @@
 import turtle
+import os
 from turtle import Turtle, colormode
 SQUARE = 50
 color_list = ["Black","White"]
@@ -131,9 +132,11 @@ def draw_tile(n,x,y,color_number):
     othello.begin_fill()
     othello.circle(SQUARE/2-5)
     othello.end_fill()
+    othello.penup() 
     update_dict(x,y,color_number)
     if empty_position_dict == {}:
         print("No more position.")
+        os._exit(0)
    #uncomment following to print dictionaries for checking if updated 
    #print("Occupied positions:\n %s " %occupied_position_dict) 
    #print("Empty positions:\n %s " %empty_position_dict) 
