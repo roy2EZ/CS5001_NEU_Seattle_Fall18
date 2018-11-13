@@ -164,9 +164,6 @@ def get_pos_to_draw(i,j):
         draw_tile(n,y,x,color_number)
         color_number+=1    
 
-
-
-
 # main function for running the game
 def main():
     print("Welcome to Othello Game!")
@@ -204,8 +201,6 @@ def main():
     s = turtle.getscreen()
     s.onclick(get_pos_to_draw)
     turtle.hideturtle()
-     
-      
 
 main()
 turtle.done()
