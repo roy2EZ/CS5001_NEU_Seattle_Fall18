@@ -5,6 +5,7 @@ SQUARE = 50
 color_list = ["Black","White"]
 empty_position_dict = {}
 occupied_position_dict = {}
+legal_position = {}
 
 # Function: draw_board
 # Parameters: n, an int for # of squares
@@ -162,7 +163,10 @@ def get_pos_to_draw(i,j):
     y=int(j/SQUARE+1+n/2)
     if x <= n and y <= n:
         draw_tile(n,y,x,color_number)
-        color_number+=1    
+        color_number+=1   
+
+
+
 
 # main function for running the game
 def main():
@@ -201,6 +205,8 @@ def main():
     s = turtle.getscreen()
     s.onclick(get_pos_to_draw)
     turtle.hideturtle()
+    
+
 
 main()
 turtle.done()
