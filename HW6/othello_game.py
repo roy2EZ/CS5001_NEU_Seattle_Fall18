@@ -3,9 +3,9 @@ import os
 from turtle import Turtle, colormode
 SQUARE = 50
 color_list = ["Black","White"]
-empty_position_dict = {}
-occupied_position_dict = {}
-legal_position = {}
+empty_position_set = set()
+black_set = set()
+white_set = set()
 
 # Function: draw_board
 # Parameters: n, an int for # of squares
@@ -63,21 +63,21 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
-# Function: init_empty_position_dict (for future use in HW7)
+# Function: init_empty_position
 # Parameters: n, an int for # of squares
-# Signature: init_empty_position_dict :: Integer => Dictionary  
+# Signature: init_empty_position :: Integer => List  
 # Returns: Dictionary
 # Does: initialize a dictionary of all positions on the board with color as None
-#       the dictionary can be use to restore all tiles color and position info for future use  
-# Example: init_empty_position_dict(2) =>
-# {(1, 1): None, (1, 2): None, (2, 1): None, (2, 2): None}
-def init_empty_position_dict(n):
-    count = 0
-    color = None
-    for y in range(1,n+1):
-        for x in range(1,n+1):
-            empty_position_dict[x,y] = color
-    return empty_position_dict     
+#       the list can be use to restore all tiles color and position info for future use  
+# Example: init_empty_position_list(2) =>
+#[(1, 1), (1, 2), (2, 1), (2, 2)]
+def init_empty_position_set(n):
+    global empty_position_set
+    for i in range(int(n*n)):
+        for y in range(1,n+1):
+            for x in range(1,n+1):
+                empty_position_set.add((x,y))
+    return empty_position_set     
  
 # Function: init_first_four_tiles
 # Parameters: n, an int for # of squares
@@ -96,19 +96,13 @@ def init_first_four_tiles(n):
         for x in range(int(n/2),int(n/2 + 2)):
             color = color_list[(color_number-1) % 2]
             draw_tile(n,x,y,color_number)
-            update_dict(x,y,color_number)
             color_number += 1
         # do same thing when x changed   
-        color_number += 1
+        color_number += 1    
     print()
     color = color_list[(color_number-1) % 2]
     print("You choose %s. Ready? Game starts!" % color)
 
-
-# Function update_dict: initialize the first four tiles to start the game
-def update_dict(x,y,color_number): 
-    empty_position_dict[x,y] = color_list[(color_number-1) % 2]
-    occupied_position_dict[x,y] = empty_position_dict.pop((x,y))
 
 # Function: draw_tile
 # Signature: draw_tile :: (Integer,Integer,Integer,Integer) => Void
@@ -120,33 +114,57 @@ def update_dict(x,y,color_number):
 # Does: draw the tile with expected position and color
 # Example: draw_tile(4,1,1,1) => draw a black tile at column 1 row 1          
 def draw_tile(n,x,y,color_number):
-    color = color_list[(color_number-1) % 2]
-    othello = turtle.Turtle()
-    othello.hideturtle()
-    othello.speed(0)
-    othello.penup()   
-    corner = -n * SQUARE / 2
-    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
-    othello.pendown()
-    othello.color('black')
-    othello.fillcolor(color)
-    othello.begin_fill()
-    othello.circle(SQUARE/2-5)
-    othello.end_fill()
-    othello.penup() 
-    update_dict(x,y,color_number)
-   #uncomment following to print dictionaries for checking if updated 
-   #print("Occupied positions:\n %s " %occupied_position_dict) 
-   #print("Empty positions:\n %s " %empty_position_dict) 
-    is_game_over()
+    while (x>=1 and x<=n and y>=1 and y<=n):
+        try:
+            color = color_list[(color_number-1) % 2]
+            othello = turtle.Turtle()
+            othello.hideturtle()
+            othello.speed(0)
+            othello.penup()   
+            corner = -n * SQUARE / 2
+            othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
+            othello.pendown()
+            othello.color('black')
+            othello.fillcolor(color)
+            othello.begin_fill()
+            othello.circle(SQUARE/2-5)
+            othello.end_fill()
+            othello.penup() 
+            update_lst(x,y,color_number) 
+            is_game_over()
+        except ValueError:
+            continue
+        else:
+            break   
+
+
+
 
 # function is_game_over() will check the empty_position_dict. 
 # if that dict become empty, it will call result related function in HW7     
 def is_game_over():
-    if empty_position_dict == {}:
+    if empty_position_set == []:
             # In home work 7 here will be calling result related function
             print("No more position.")
             os._exit(0)
+
+
+# Function update_dict: initialize the first four tiles to start the game
+def update_lst(x,y,color_number): 
+    global black_set
+    global white_set
+    global empty_position_set
+    if color_list[(color_number-1) % 2] is "Black":
+        black_set.add((x,y)) 
+        empty_position_set.remove((x,y))
+    elif color_list[(color_number-1) % 2] is "White":
+        white_set.add((x,y))
+        empty_position_set.remove((x,y))
+    print("White positions:\n %s " %white_set) 
+    print("Black positions:\n %s " %black_set) 
+    print("Empty positions:\n %s " %empty_position_set)
+
+               
 
 # Function: get_pos_to_draw
 # Signature: get_pos_to_draw :: (Integer,Integer) => Void
@@ -164,9 +182,6 @@ def get_pos_to_draw(i,j):
     if x <= n and y <= n:
         draw_tile(n,y,x,color_number)
         color_number+=1   
-
-
-
 
 # main function for running the game
 def main():
@@ -186,7 +201,7 @@ def main():
     
     draw_board(n)
 
-    init_empty_position_dict(n)
+    init_empty_position_set(n)
 
     # Prompt user to choose color
     while True:
