@@ -143,10 +143,10 @@ def draw_tile(n,x,y,color_number):
 # function is_game_over() will check the empty_position_dict. 
 # if that dict become empty, it will call result related function in HW7     
 def is_game_over():
-    if empty_position_set == []:
-            # In home work 7 here will be calling result related function
-            print("No more position.")
-            os._exit(0)
+    if empty_position_set == set():
+        # In home work 7 here will be calling result related function
+        print("No more position.")
+        os._exit(0)
 
 
 # Function update_dict: initialize the first four tiles to start the game
