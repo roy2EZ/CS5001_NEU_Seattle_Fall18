@@ -71,30 +71,22 @@ def init_empty_position_set(n):
 
   
 def init_four_tile(n):
+    global current_color_num
     a=int(n/2)
     b=int(n/2)
-    draw_white(a,b)
-    draw_white(a+1,b+1)
-    draw_black(a+1,b)
-    draw_black(a,b+1)
-    
-
-def init_test_tile(n):
-    a=int(n/2-1)
-    b=int(n/2-1)
-    for i in range(3):
-        for j in range(3):
-            draw_white(a+i,b+j)
-    white_set.remove((a+1,b+1))
-    empty_position_set.add((a+1,b+1))
-    draw_black(a+1,b+1)
-    
-    print(white_set)  
-    print(black_set)   
-    print(empty_position_set)
-       
-          
-    
+    draw_tile(a,b)
+    draw_tile(a+1,b+1)
+    if current_color_num == 0:
+        current_color_num+=1
+        draw_tile(a+1,b)
+        draw_tile(a,b+1)
+        current_color_num-=1
+    if current_color_num == 1:
+        current_color_num-=1
+        draw_tile(a+1,b)
+        draw_tile(a,b+1)
+        current_color_num+=1    
+ 
 
 
 # user input----------------------------------------------------------------
@@ -136,7 +128,7 @@ def user_choose_color():
 
     
 # draw operation-------------------------------------------------------------------------
-def draw_white(x,y):
+def draw_tile(x,y):
     othello = turtle.Turtle()
     othello.hideturtle() 
     othello.speed(0)
@@ -145,53 +137,33 @@ def draw_white(x,y):
     othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
     othello.pendown()
     othello.color('black')
-    othello.fillcolor('white')
+    if current_color_num == 0:
+        othello.fillcolor('black')
+    elif current_color_num == 1:
+        othello.fillcolor('white')        
     othello.begin_fill()
     othello.circle(SQUARE/2-5)
     othello.end_fill()
     othello.penup()
     othello.hideturtle()
-    update_white_set(x,y)
-      
-
+    update_set(x,y)
     
-     
-    
-def draw_black(x,y): 
-    othello = turtle.Turtle()
-    othello.hideturtle() 
-    othello.speed(0)
-    othello.penup()   
-    corner = -n * SQUARE / 2
-    othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
-    othello.pendown()
-    othello.color('black')
-    othello.fillcolor('black')
-    othello.begin_fill()
-    othello.circle(SQUARE/2-5)
-    othello.end_fill()
-    othello.penup() 
-    othello.hideturtle()
-    update_black_set(x,y)
-   
-
-     
+ 
 
 def draw_operation(i,j):
     global x
     global y
     global current_color_num
-    global black_legal_flag
-    black_legal_flag = False
+    
     SQUARE*(int(n/2))
     x=int(j/SQUARE+1+n/2)
     y=int(i/SQUARE+1+n/2)
     if (x,y) in empty_position_set:
         if current_color_num == 0:
-            draw_black(x,y)
+            draw_tile(x,y)
             current_color_num = 1
         elif current_color_num == 1:
-            draw_white(x,y)  
+            draw_tile(x,y)  
             current_color_num = 0 
     print_test()
     if is_game_over():
@@ -202,35 +174,20 @@ def click_to_game():
     s.onclick(draw_operation)        
     
 
-#flip--------------------------------------------------------------------------------------------               
-def flip(x,y):
-    if (x,y) in black_set and current_color_num == 1:
-        black_set.remove((x,y))
-        empty_position_set.add((x,y))
-        draw_white(x,y)
-        
-    elif (x,y) in white_set and current_color_num == 0:
-        white_set.remove((x,y))
-        empty_position_set.add((x,y))
-        draw_black(x,y)
-        
+# legal move--------------------------------------------------------------
+
+
 
 
 
 # update set---------------------------------------------------------------
-def update_white_set(x,y):
-    if (x,y) in empty_position_set:
-        empty_position_set.remove((x,y))
-    elif (x,y) in black_set:
-        black_set.remove((x,y))
-    white_set.add((x,y))  
-
-def update_black_set(x,y):
-    if (x,y) in empty_position_set:
-        empty_position_set.remove((x,y))
-    elif (x,y) in white_set:
-        white_set.remove((x,y))
-    black_set.add((x,y)) 
+def update_set(x,y):
+    empty_position_set.remove((x,y))
+    if current_color_num == 0:
+        black_set.add((x,y))
+    elif current_color_num == 1:
+        white_set.add((x,y))
+    
 
 
 # test------------------------------------------------------------------------------------------------
@@ -245,7 +202,7 @@ def print_test():
     print(current_color_num)
     print(user_color)
     print(enemy_color)
-    print(black_legal_flag)
+   
 
 def is_game_over():
     if empty_position_set == set():
@@ -260,12 +217,14 @@ def main():
     print("Welcome to Othello Game!")
     user_input_n()
     draw_board(n)
-    init_empty_position_set(n)
-    #init_four_tile(n)
-    init_test_tile(n)
     user_choose_color()
+    init_empty_position_set(n)
+    init_four_tile(n)
     click_to_game()
     
-            
+        
+    
+
+
 main()
 turtle.done()
