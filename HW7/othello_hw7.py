@@ -21,11 +21,11 @@ def draw_board(n):
 
     # Line color is black, fill color is green
     othello.color("black", "forest green")
-    
+
     # Move the turtle to the upper left corner
     corner = -n * SQUARE / 2
     othello.setposition(corner, corner)
-  
+
     # Draw the green background
     othello.begin_fill()
     for i in range(4):
@@ -48,15 +48,15 @@ def draw_board(n):
     # Write coordinates for user easily to find row and column number
     for i in range(n):
         othello.setposition(corner+SQUARE/2+i*SQUARE,corner-18)
-        othello.write("%d" % int(i+1), font=("Arial", 10, "normal")) 
+        othello.write("%d" % int(i+1), font=("Arial", 10, "normal"))
     for j in range(n):
         othello.setposition(corner-10,corner+SQUARE/3+j*SQUARE)
         othello.write("%d" % int(j+1), font=("Arial", 10, "normal"))
 
-    turtle.hideturtle()    
+    turtle.hideturtle()
 
 def draw_lines(turt, n):
-    turt.hideturtle() 
+    turt.hideturtle()
     turt.pendown()
     turt.forward(SQUARE * n)
     turt.penup()
@@ -69,7 +69,7 @@ def init_empty_position_set(n):
                 empty_position_set.add((x,y))
     return empty_position_set
 
-  
+
 def init_four_tile(n):
     global current_color_num
     a=int(n/2)
@@ -85,18 +85,18 @@ def init_four_tile(n):
         current_color_num-=1
         draw_tile(a+1,b)
         draw_tile(a,b+1)
-        current_color_num+=1    
- 
+        current_color_num+=1
+
 
 
 # user input----------------------------------------------------------------
 def user_input_n():
     while True:
         try:
-            global n 
+            global n
             n = int(input("Please enter board size: "))
             if n % 2 != 0 or n <= 2:
-                raise ValueError   
+                raise ValueError
         except ValueError:
             print("Valid size should be an positive even number and greater than 2.")
             continue
@@ -112,27 +112,27 @@ def user_choose_color():
             user_color = input("Please choose your color - B for Black, W for White:").upper()
             if user_color not in color_list:
                 raise ValueError
-            # user choose black:    
+            # user choose black:
             if user_color == color_list[0]:
                 enemy_color = color_list[1]
                 current_color_num = color_list.index(user_color)
-            # user choose white:     
+            # user choose white:
             elif user_color ==  color_list[1]:
                 enemy_color = color_list[0]
-                current_color_num = color_list.index(user_color)     
+                current_color_num = color_list.index(user_color)
         except ValueError:
             print("Please enter valid color input - B for Black, W for White:")
             continue
         else:
             break
 
-    
+
 # draw operation-------------------------------------------------------------------------
 def draw_tile(x,y):
     othello = turtle.Turtle()
-    othello.hideturtle() 
+    othello.hideturtle()
     othello.speed(0)
-    othello.penup()   
+    othello.penup()
     corner = -n * SQUARE / 2
     othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
     othello.pendown()
@@ -140,41 +140,121 @@ def draw_tile(x,y):
     if current_color_num == 0:
         othello.fillcolor('black')
     elif current_color_num == 1:
-        othello.fillcolor('white')        
+        othello.fillcolor('white')
     othello.begin_fill()
     othello.circle(SQUARE/2-5)
     othello.end_fill()
     othello.penup()
     othello.hideturtle()
     update_set(x,y)
-    
- 
+
+
 
 def draw_operation(i,j):
     global x
     global y
     global current_color_num
-    
+
+
     SQUARE*(int(n/2))
     x=int(j/SQUARE+1+n/2)
     y=int(i/SQUARE+1+n/2)
-    if (x,y) in empty_position_set:
+    if (x,y) in empty_position_set and is_legal_check(x,y):
         if current_color_num == 0:
             draw_tile(x,y)
             current_color_num = 1
         elif current_color_num == 1:
-            draw_tile(x,y)  
-            current_color_num = 0 
+            draw_tile(x,y)
+            current_color_num = 0
     print_test()
     if is_game_over():
         os._exit(0)
 
+
+            
+                
+
 def click_to_game():
     s = turtle.getscreen()
-    s.onclick(draw_operation)        
-    
+    s.onclick(draw_operation)
+
 
 # legal move--------------------------------------------------------------
+
+def is_legal_check(x,y):
+    dirs = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]
+    set_cur = set()
+    global black_set
+    global white_set
+    global current_color_num
+    
+
+    if current_color_num == 0:
+        set_cur = black_set
+    elif current_color_num == 1:
+        set_cur = white_set
+
+
+    for dir in dirs:
+        cur_x = x + dir[0];
+        cur_y = y + dir[1];
+        if check_inside_board(cur_x,cur_y) == False:
+            continue
+        elif is_in_empty_set(cur_x,cur_y) == True:
+            continue
+        elif (cur_x,cur_y) in set_cur:
+            continue
+
+        sameColorFoundFlag = False
+
+        while not sameColorFoundFlag:  
+            cur_x = cur_x + dir[0]
+            cur_y = cur_y + dir[1]
+            if check_inside_board(cur_x, cur_y) == False:
+                break
+            elif is_in_empty_set(cur_x,cur_y) == True:
+                break
+            elif (cur_x,cur_y) in set_cur:
+                sameColorFoundFlag = True
+                break
+
+        if sameColorFoundFlag == True:
+            return True
+    return False
+
+
+
+            
+
+
+
+def is_in_empty_set(x,y):
+    return (x,y) in empty_position_set
+        
+
+def check_inside_board(x,y):
+    global n
+    if x>=1 and x<=n and y>=1 and y<=n:
+        return True
+    else:
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -187,7 +267,7 @@ def update_set(x,y):
         black_set.add((x,y))
     elif current_color_num == 1:
         white_set.add((x,y))
-    
+
 
 
 # test------------------------------------------------------------------------------------------------
@@ -198,21 +278,25 @@ def print_test():
     print(black_set)
     print("white:")
     print(white_set)
-    print(x,y)
-    print(current_color_num)
-    print(user_color)
-    print(enemy_color)
+    print("current color number - 0 for black, 1 for white: ", current_color_num)
+    print("user color: ", user_color)
+    print("enemy color: ", enemy_color)
+    print("mouse postion: ", (x,y))
+    
    
+    
+
+
 
 def is_game_over():
     if empty_position_set == set():
         print("No more position.")
-        return True    
+        return True
     else:
-        return False    
- 
+        return False
 
-#main--------------------------------------------------------------------------------------------- 
+
+#main---------------------------------------------------------------------------------------------
 def main():
     print("Welcome to Othello Game!")
     user_input_n()
@@ -221,9 +305,9 @@ def main():
     init_empty_position_set(n)
     init_four_tile(n)
     click_to_game()
-    
-        
-    
+
+
+
 
 
 main()
