@@ -461,13 +461,19 @@ def update_set(x,y):
 
 
 # operation when game over------------------------------------------------------
+
+# Function: is_game_over
+# Does: judge if it is game over
+# if game is over, do the related function 
+# and return True, otherwise return false
 def is_game_over():
     if empty_position_set == set() or black_set == set() or white_set == set():
         game_over()
         return True
     else:
         return False
-
+# Function: game_over
+# Does: output the game result and write high score into the file
 def game_over():
     white_number = len(white_set)
     black_number = len(black_set)
@@ -492,7 +498,7 @@ def game_over():
         print("Black: ", black_number)
         print("White: ", white_number)
 
-    #score file update-------------------------------------------------------------------
+    #high score file update-------------------------------------------------------------------
     if winner_color == user_color:
         name = str(input("Please enter your name: "))
         winner_str = name + " " + str(winner_score)
