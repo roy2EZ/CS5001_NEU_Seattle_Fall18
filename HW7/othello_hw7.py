@@ -167,12 +167,10 @@ def draw_operation(i,j):
     global y
     global current_color_num
     global has_user_click
-    
 
     SQUARE*(int(n/2))
     x=int(j/SQUARE+1+n/2)
     y=int(i/SQUARE+1+n/2)
-    
     
     # Human vs Human mode
     if vs_mode == 2:
@@ -407,21 +405,6 @@ def update_set(x,y):
 
 
 
-
-# test------------------------------------------------------------------------------------------------
-def print_test():
-    print("Empty:")
-    print(empty_position_set)
-    print("black:")
-    print(black_set)
-    print("white:")
-    print(white_set)
-    print("current color number - 0 for black, 1 for white: ", current_color_num)
-    print("user color: ", user_color)
-    print("enemy color: ", enemy_color)
-    
-    
-
 # operation when game over------------------------------------------------------
 def is_game_over():
     if empty_position_set == set() or black_set == set() or white_set == set():
@@ -477,20 +460,6 @@ def game_over():
         file.close()
                 
 
-        
-        
-
-
-        
-
-
-
-
-
-
-
-
-
 # main---------------------------------------------------------------------------------------------
 def main():
     print("Welcome to Othello Game!")
@@ -499,12 +468,16 @@ def main():
     user_choose_color()
     init_empty_position_set(n)
     init_four_tile(n)
+    # let user choose enemy is computer or another human
     global vs_mode
     vs_mode = int(input("Please choose your enemy - 1 for computer, 2 for another player: "))
     click_to_game()
     turtle.done()
-        
 
 
 
+# Run the game using main() function        
 main()
+
+
+
