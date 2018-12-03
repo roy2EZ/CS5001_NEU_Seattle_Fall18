@@ -63,14 +63,13 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
-# Function: init_empty_position
+# Function: init_empty_position_set
 # Parameters: n, an int for # of squares
-# Signature: init_empty_position :: Integer => List  
-# Returns: Dictionary
-# Does: initialize a dictionary of all positions on the board with color as None
-#       the list can be use to restore all tiles color and position info for future use  
-# Example: init_empty_position_list(2) =>
-#[(1, 1), (1, 2), (2, 1), (2, 2)]
+# Signature: init_empty_position :: Integer => Set 
+# Returns: Set
+# Does: initialize a set of all empty positions on the board 
+# Example: init_empty_position_set(2) =>
+#{(1, 1), (1, 2), (2, 1), (2, 2)}
 def init_empty_position_set(n):
     global empty_position_set
     for i in range(int(n*n)):

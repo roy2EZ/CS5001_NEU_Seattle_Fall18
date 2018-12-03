@@ -8,11 +8,17 @@ black_set = set()
 white_set = set()
 user_color = None
 enemy_color = None
-
 current_color_num = 0
 
 
 # game init----------------------------------------------------------------------
+
+# Function: draw_board
+# Parameters: n, an int for # of squares
+# Signature: draw_board:: Integer => Void
+# Returns: nothing
+# Does: Draws an nxn board with a green background
+# Example: draw_board(4) => a 4*4 board 
 def draw_board(n):
     turtle.setup(n * SQUARE + SQUARE, n * SQUARE + SQUARE)
     turtle.screensize(n * SQUARE, n * SQUARE)
@@ -66,6 +72,14 @@ def draw_lines(turt, n):
     turt.forward(SQUARE * n)
     turt.penup()
 
+# Function: init_empty_position_set
+# Parameters: n, an int for # of squares
+# Signature: init_empty_position :: Integer => List  
+# Returns: Dictionary
+# Does: initialize a dictionary of all positions on the board with color as None
+#       the list can be use to restore all tiles color and position info for future use  
+# Example: init_empty_position_list(2) =>
+#[(1, 1), (1, 2), (2, 1), (2, 2)]
 def init_empty_position_set(n):
     global empty_position_set
     for i in range(int(n*n)):
