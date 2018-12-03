@@ -74,12 +74,11 @@ def draw_lines(turt, n):
 
 # Function: init_empty_position_set
 # Parameters: n, an int for # of squares
-# Signature: init_empty_position :: Integer => List  
-# Returns: Dictionary
-# Does: initialize a dictionary of all positions on the board with color as None
-#       the list can be use to restore all tiles color and position info for future use  
-# Example: init_empty_position_list(2) =>
-#[(1, 1), (1, 2), (2, 1), (2, 2)]
+# Signature: init_empty_position_set :: Integer => Set 
+# Returns: Set
+# Does: initialize a set of all empty positions on the board 
+# Example: init_empty_position_set(2) =>
+#{(1, 1), (1, 2), (2, 1), (2, 2)}
 def init_empty_position_set(n):
     global empty_position_set
     for i in range(int(n*n)):
@@ -88,7 +87,14 @@ def init_empty_position_set(n):
                 empty_position_set.add((x,y))
     return empty_position_set
 
-
+# Function: init_four_tile
+# Parameters: n, an int for # of squares
+# Signature: init_four_tile :: (Integer,Integer) => Void
+# Returns: nothing
+# Does: initialize to draw the first four tiles to start the game
+# Example: init_four_tile(4) => 
+# draw black tile at column 2 row 2, and column 3 row 3
+# draw white tile at column 3 row 2, and column 2 row 3
 def init_four_tile(n):
     global current_color_num
     a=int(n/2)
@@ -109,6 +115,10 @@ def init_four_tile(n):
 
 
 # user input----------------------------------------------------------------
+
+# Function: user_input_n
+# Does: let user input the n for drawing n*n board
+# Example: user_input_n => user will input the n
 def user_input_n():
     while True:
         try:
@@ -122,8 +132,10 @@ def user_input_n():
         else:
             break
 
+# Function: user_choose_color
+# Does: let user input the color he wanna use for game
+# Example: user_choose_color => user will input the color
 def user_choose_color():
-    
     while True:
         try:
             global user_color
@@ -148,6 +160,14 @@ def user_choose_color():
 
 
 # draw operation-------------------------------------------------------------------------
+
+# Function: draw_tile
+# Parameters: x, y which are two integers for row and column number
+# Signature: draw_tile :: (Integer,Integer) => Void
+# Returns: nothing
+# Does: draw a tile at row x column y
+# Example: draw_tile(3,4) => 
+# draw tile at row 3 column 4
 def draw_tile(x,y):
     global current_color_num
     othello = turtle.Turtle()
@@ -170,24 +190,89 @@ def draw_tile(x,y):
     update_set(x,y)
 
 
-
+# Function: click_to_game
+# Does: when user click the screen, do the draw_operation function
 def click_to_game():
     s = turtle.getscreen()
     s.onclick(draw_operation)
     turtle.done()
 
+# Function: draw_operation
+# Parameters: i, j which are two numbers get from the point by mouse click on screen
+# Signature: draw_operation :: (Integer,Integer) => Void
+# Returns: nothing
+# Does: will operate the draw tile function with different game situation
+# Example: draw_operation(200,100) => will draw tile by condition 
 def draw_operation(i,j):
     global x
     global y
     global current_color_num
     global has_user_click
-
+    # transfer the i,j by mouse clicking 
+    # into x row y column position on the board
     SQUARE*(int(n/2))
     x=int(j/SQUARE+1+n/2)
     y=int(i/SQUARE+1+n/2)
     
+
+    # Human vs Computer mode
+    if vs_mode == 1:
+        # user(human) draw his tile
+        human_finish_flag = False
+        # check if it is legal move
+        if check_legal_move() == True:
+            flip_set = get_flip_position(x,y)
+            if len(flip_set)>0:
+                draw_tile(x,y)
+                for (x,y) in flip_set:
+                    draw_tile(x,y)
+                if is_game_over():
+                    os._exit(0)
+                if current_color_num == 1:
+                    current_color_num = 0
+                    human_finish_flag = True
+                elif current_color_num == 0:
+                    current_color_num = 1
+                    human_finish_flag = True
+        # if it is not legal move
+        elif check_legal_move() == False:
+            if current_color_num == 0:
+                current_color_num = 1
+                if check_legal_move() == False:
+                    game_over()
+                    os._exit(0)
+                elif check_legal_move == True:
+                    print("Black has no move. It's White turn.")    
+            elif current_color_num == 1:
+                current_color_num = 0
+                if check_legal_move() == False:
+                    game_over()
+                    os._exit(0)
+                elif check_legal_move() == True:
+                    print("White has no move. It's Black turn.") 
+
+        # computer turn to draw 
+        if human_finish_flag == True:
+            if check_legal_move() == True:
+                (com_x,com_y) = get_computer_draw_pos()
+                # computer draw with calling the AI function
+                flip_set = get_flip_position(com_x,com_y)
+                if len(flip_set)>0:
+                    draw_tile(com_x,com_y)
+                    for (x,y) in flip_set:
+                        draw_tile(x,y)
+                    if is_game_over():
+                        os._exit(0)
+                    color_change()    
+
+            elif check_legal_move() == False:
+                color_change()
+                if check_legal_move() == False:
+                    game_over()
+                    os._exit(0)
+
     # Human vs Human mode
-    if vs_mode == 2:
+    elif vs_mode == 2:
         
         if check_legal_move() == True:
             flip_set = get_flip_position(x,y)
@@ -229,63 +314,7 @@ def draw_operation(i,j):
                 elif check_legal_move() == True:
                     print("White has no move. It's Black turn.") 
 
-
-                   
-    
-    # Human vs Computer mode
-    elif vs_mode == 1:
-        # draw human (x,y)
-        human_finish_flag = False
-        if check_legal_move() == True:
-            flip_set = get_flip_position(x,y)
-            if len(flip_set)>0:
-                draw_tile(x,y)
-                for (x,y) in flip_set:
-                    draw_tile(x,y)
-                if is_game_over():
-                    os._exit(0)
-                if current_color_num == 1:
-                    current_color_num = 0
-                    human_finish_flag = True
-                elif current_color_num == 0:
-                    current_color_num = 1
-                    human_finish_flag = True
-
-        elif check_legal_move() == False:
-            if current_color_num == 0:
-                current_color_num = 1
-                if check_legal_move() == False:
-                    game_over()
-                    os._exit(0)
-                elif check_legal_move == True:
-                    print("Black has no move. It's White turn.")    
-            elif current_color_num == 1:
-                current_color_num = 0
-                if check_legal_move() == False:
-                    game_over()
-                    os._exit(0)
-                elif check_legal_move() == True:
-                    print("White has no move. It's Black turn.") 
-
-        # computer 
-        if human_finish_flag == True:
-            if check_legal_move() == True:
-                (com_x,com_y) = get_computer_draw_pos()
-                # com draw (x,y)
-                flip_set = get_flip_position(com_x,com_y)
-                if len(flip_set)>0:
-                    draw_tile(com_x,com_y)
-                    for (x,y) in flip_set:
-                        draw_tile(x,y)
-                    if is_game_over():
-                        os._exit(0)
-                    color_change()    
-
-            elif check_legal_move() == False:
-                color_change()
-                if check_legal_move() == False:
-                    game_over()
-                    os._exit(0)
+                
 
 def color_change():
     global current_color_num
@@ -296,6 +325,11 @@ def color_change():
     
 
 # AI ---------------------------------------------------------------------------------
+
+# Function: get_computer_draw_pos
+# Returns: x,y as two integer for row and column number
+# Does: get the best location for computer to draw 
+#       which computer can get most flip tiles in its round
 def get_computer_draw_pos():
     length_flip_set = 0
     pos = ()
@@ -312,7 +346,11 @@ def get_computer_draw_pos():
 
 # legal move--------------------------------------------------------------
 
-
+# Function: get_flip_position
+# Parameters: x,y as two integer for row and column number
+# Returns: Set
+# Signature: get_flip_position:: (Integer, Integer)=>Set
+# Does: get the flip positions for the legal position which tile will be draw
 def get_flip_position(x,y):
     dirs = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]
     set_cur = set()
@@ -362,7 +400,10 @@ def get_flip_position(x,y):
                 flip_set.add(position)
     return flip_set
 
-
+# Function: check_legal_move
+# Returns: Boolean
+# Signature: get_flip_position:: Void => Boolean
+# Does: Check if current player has legal move
 def check_legal_move():
     legal_set = set()
     for (x,y) in empty_position_set:
@@ -375,6 +416,7 @@ def check_legal_move():
     else:
         return False
 
+# Get the legal move sets for that legal position to draw
 def get_legal_move_set():
     legal_set = set()
     for (x,y) in empty_position_set:
@@ -384,11 +426,10 @@ def get_legal_move_set():
     return legal_set
 
 
-
+# two small functions for checking if that position in empty set or if out of board
 def is_in_empty_set(x,y):
     return (x,y) in empty_position_set
         
-
 def check_inside_board(x,y):
     global n
     if x>=1 and x<=n and y>=1 and y<=n:
@@ -397,10 +438,10 @@ def check_inside_board(x,y):
         return False
 
 
-
-
-
 # update set---------------------------------------------------------------
+
+#Function: update_set
+#Does: update the set for black or white or empty set, after each tile drawing
 def update_set(x,y):
     if (x,y) in empty_position_set:
         empty_position_set.remove((x,y))
