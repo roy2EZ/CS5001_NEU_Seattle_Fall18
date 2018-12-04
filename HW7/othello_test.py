@@ -125,8 +125,7 @@ unittest.TextTestRunner(verbosity=2).run(suite)
 # {(3,5),(3,6),(4,4),(5,3),(6,2)} white is the set of where tiles will be flip
 
 
-
 # Function: update_set
 # Does: update the set for black or white or empty set, after each tile drawing
 # Test: update_set(2,3) => if color is black, (2,3) will add into black_set
-#          update_set(3,1) => if color is white, (3,1) will add into white_set
+#       update_set(3,1) => if color is white, (3,1) will add into white_set
