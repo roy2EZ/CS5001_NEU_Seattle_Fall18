@@ -11,7 +11,7 @@ enemy_color = None
 current_color_num = 0
 
 
-# game init----------------------------------------------------------------------
+#1 Game initialize-----------------------------------------------------------
 
 # Function: draw_board
 # Parameters: n, an int for # of squares
@@ -66,6 +66,8 @@ def draw_board(n):
 
     turtle.hideturtle()
 
+# Function: draw_lines
+# Does: called to draw the lines in the board
 def draw_lines(turt, n):
     turt.hideturtle()
     turt.pendown()
@@ -114,7 +116,7 @@ def init_four_tile(n):
 
 
 
-# user input----------------------------------------------------------------
+#2 User input-----------------------------------------------------------------------------------------
 
 # Function: user_input_n
 # Does: let user input the n for drawing n*n board
@@ -159,7 +161,7 @@ def user_choose_color():
             break
 
 
-# draw operation-------------------------------------------------------------------------
+# 3 Draw operation------------------------------------------------------------------------------------
 
 # Function: draw_tile
 # Parameters: x, y which are two integers for row and column number
@@ -214,8 +216,7 @@ def draw_operation(i,j):
     x=int(j/SQUARE+1+n/2)
     y=int(i/SQUARE+1+n/2)
     
-
-    # Human vs Computer mode
+    # Human vs Computer mode-------------------------------
     if vs_mode == 1:
         # user(human) draw his tile
         human_finish_flag = False
@@ -271,7 +272,7 @@ def draw_operation(i,j):
                     game_over()
                     os._exit(0)
 
-    # Human vs Human mode
+    # Human vs Human mode-------------------------------------------
     elif vs_mode == 2:
         
         if check_legal_move() == True:
@@ -315,7 +316,9 @@ def draw_operation(i,j):
                     print("White has no move. It's Black turn.") 
 
                 
-
+# Function: color_change
+# Does: to change the current color from black to white 
+# or from white to black after draw tile
 def color_change():
     global current_color_num
     if current_color_num == 1:
@@ -324,7 +327,7 @@ def color_change():
         current_color_num = 1     
     
 
-# AI ---------------------------------------------------------------------------------
+# 4 AI ---------------------------------------------------------------------------------
 
 # Function: get_computer_draw_pos
 # Returns: x,y as two integer for row and column number
@@ -344,7 +347,7 @@ def get_computer_draw_pos():
 
 
 
-# legal move--------------------------------------------------------------
+# 5 legal move--------------------------------------------------------------------
 
 # Function: get_flip_position
 # Parameters: x,y as two integer for row and column number
@@ -352,6 +355,8 @@ def get_computer_draw_pos():
 # Signature: get_flip_position:: (Integer, Integer)=>Set
 # Does: get the flip positions for the legal position which tile will be draw
 def get_flip_position(x,y):
+    # dirs are the 8 directions: 
+    # up, down, left, right, upright,upleft, downright,downleft
     dirs = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]
     set_cur = set()
     set_oppsite = set()
@@ -426,10 +431,17 @@ def get_legal_move_set():
     return legal_set
 
 
-# two small functions for checking if that position in empty set or if out of board
+# functions for checking if that position in empty set or if out of board
+
+# Function: is_in_empty_set
+# Does: check if the position x,y in the empty set which means there is no tile
+# Signature: is_in_empty_set :: (Integer,Integer) => Boolean
 def is_in_empty_set(x,y):
     return (x,y) in empty_position_set
-        
+
+# Function: check_inside_board
+# Does: check if the position x,y is inside the n*n board
+# Signature: check_inside_board :: (Integer,Integer) => Boolean        
 def check_inside_board(x,y):
     global n
     if x>=1 and x<=n and y>=1 and y<=n:
@@ -438,10 +450,12 @@ def check_inside_board(x,y):
         return False
 
 
-# update set---------------------------------------------------------------
+# 6 Update tile position related set-----------------------------------------------
 
-#Function: update_set
-#Does: update the set for black or white or empty set, after each tile drawing
+# Function: update_set
+# Does: update the set for black or white or empty set, after each tile drawing
+# Example: update_set(2,3) => if color is black, (2,3) will add into black_set
+#          update_set(3,1) => if color is white, (3,1) will add into white_set
 def update_set(x,y):
     if (x,y) in empty_position_set:
         empty_position_set.remove((x,y))
@@ -460,7 +474,7 @@ def update_set(x,y):
 
 
 
-# operation when game over------------------------------------------------------
+# 7 Game over operation--------------------------------------------------------------------------
 
 # Function: is_game_over
 # Does: judge if it is game over
@@ -472,6 +486,7 @@ def is_game_over():
         return True
     else:
         return False
+
 # Function: game_over
 # Does: output the game result and write high score into the file
 def game_over():
@@ -498,7 +513,7 @@ def game_over():
         print("Black: ", black_number)
         print("White: ", white_number)
 
-    #high score file update-------------------------------------------------------------------
+    #high score file update
     if winner_color == user_color:
         name = str(input("Please enter your name: "))
         winner_str = name + " " + str(winner_score)
@@ -521,7 +536,7 @@ def game_over():
         file.close()
                 
 
-# main---------------------------------------------------------------------------------------------
+# 8 Main function----------------------------------------------------------------------------------
 def main():
     print("Welcome to Othello Game!")
     user_input_n()
@@ -537,7 +552,7 @@ def main():
 
 
 
-# Run the game using main() function        
+# Run the game using main function        
 main()
 
 
