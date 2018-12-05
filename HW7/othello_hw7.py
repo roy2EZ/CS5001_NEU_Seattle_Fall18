@@ -27,7 +27,7 @@ def draw_board(n):
     # Create the turtle to draw the board
     othello = turtle.Turtle()
     othello.penup()
-    othello.speed(0)
+    othello.speed(200)
     othello.hideturtle()
 
     # Line color is black, fill color is green
@@ -174,7 +174,7 @@ def draw_tile(x,y):
     global current_color_num
     othello = turtle.Turtle()
     othello.hideturtle()
-    othello.speed(0)
+    othello.speed(200)
     othello.penup()
     corner = -n * SQUARE / 2
     othello.setposition(corner+SQUARE/2+(y-1)*SQUARE,corner+(x-1)*SQUARE+5)
